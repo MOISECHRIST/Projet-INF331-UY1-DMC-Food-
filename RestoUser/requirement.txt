@@ -1,0 +1,13 @@
+Django>=2.1.3
+djangorestframework>=3.9.0
+django-cors-headers
+python-dotenv
+channels
+daphne
+Pillow
+requests
+django-import-export
+python-decouple
+django-filter
+dj-rest-auth
+'dj-rest-auth[with_social]'
