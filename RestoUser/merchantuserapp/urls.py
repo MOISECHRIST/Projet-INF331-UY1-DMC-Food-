@@ -5,5 +5,10 @@ from .views import *
 router = routers.DefaultRouter()
 router.register("Country", CountryViewSet)
 router.register("City", CityViewSet)
-router.register("Restorent", RestorentViewSet)
-router.register("MerchantUser", Merchant_UserViewSet)
+router.register("Quartier", QuartierViewSet)
+router.register("Restaurant", RestaurantViewSet)
+router.register("Menu", MenuViewSet)
+router.register("PlatMenu", PlatMenuViewSet)
+router.register("Ingredient", IngredientViewSet)
+router.register("me", MeViewSet, basename="me")
+

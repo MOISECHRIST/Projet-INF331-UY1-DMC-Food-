@@ -1,13 +1,29 @@
-from django.shortcuts import render
+from rest_framework.response import Response
 from rest_framework import viewsets
 from merchantuserapp.serializers import (
     CitySerializer,
     CountrySerializer,
-    Merchant_UserSerializer,
-    RestorentSerializer,
+    IngredientSerializer,
+    MenuSerializer,
+    PlatMenuSerializer,
+    QuartierSerializer,
+    RestaurantSerializer,
+    UserSerializer,
 )
 from merchantuserapp.models import *
 from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth.models import User
+
+
+class MeViewSet(viewsets.ViewSet):
+    
+    permission_classes = (IsAuthenticated,)
+    
+    def list(self,request):
+        user=User.object.get(username=request.user)
+        user_data=UserSerializer(user).data
+        return Response(user_data)
+
 
 
 class CountryViewSet(viewsets.ModelViewSet):
@@ -25,18 +41,41 @@ class CityViewSet(viewsets.ModelViewSet):
     filterset_fields = ["name", "country"]
     search_fields = ["name"]
 
-
-class RestorentViewSet(viewsets.ModelViewSet):
-    queryset = Restorent.objects.all()
+class QuartierViewSet(viewsets.ModelViewSet):
+    queryset = Quartier.objects.all()
     permission_classes = (IsAuthenticated,)
-    serializer_class = RestorentSerializer
-    filterset_fields = ["name", "city", "latitude", "longitude"]
+    serializer_class = QuartierSerializer
+    filterset_fields = ["name"]
     search_fields = ["name"]
 
-
-class Merchant_UserViewSet(viewsets.ModelViewSet):
-    queryset = Merchant_User.objects.all()
+class RestaurantViewSet(viewsets.ModelViewSet):
+    queryset = Restaurant.objects.all()
     permission_classes = (IsAuthenticated,)
-    serializer_class = Merchant_UserSerializer
-    filterset_fields = ["username", "first_name", "last_name", "restorent"]
-    search_fields = ["username"]
+    serializer_class = RestaurantSerializer
+    filterset_fields = ["restorent_name", "quartier", "latitude", "longitude"]
+    search_fields = ["restorent_name"]
+
+
+class MenuViewSet(viewsets.ModelViewSet):
+    queryset = Menu.objects.all()
+    permission_classes = (IsAuthenticated,)
+    serializer_class = MenuSerializer
+    filterset_fields = ["restaurant", "jour_semaine"]
+    search_fields = ["restaurant"]
+
+
+class PlatMenuViewSet(viewsets.ModelViewSet):
+    queryset = PlatMenu.objects.all()
+    permission_classes = (IsAuthenticated,)
+    serializer_class = PlatMenuSerializer
+    filterset_fields = ["plat", "menu","prix","quantite","unite_quantite"]
+    search_fields = ["restaurant"]
+
+
+class IngredientViewSet(viewsets.ModelViewSet):
+    queryset = Ingredient.objects.all()
+    permission_classes = (IsAuthenticated,)
+    serializer_class = IngredientSerializer
+    filterset_fields = ["plat", "menu","prix","quantite","unite_quantite"]
+    search_fields = ["restaurant"]
+

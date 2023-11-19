@@ -1,6 +1,20 @@
 from rest_framework import serializers
 from merchantuserapp.models import *
+from django.contrib.auth.models import User
 
+
+class RestaurantSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Restaurant
+        fields = "__all__"
+
+class UserSerializer(serializers.ModelSerializer):
+
+    profile=RestaurantSerializer(source='restaurant')
+
+    class Meta:
+        model=User
+        fields = ("id","username","first_name","last_name","email", 'profile')
 
 class CountrySerializer(serializers.ModelSerializer):
     class Meta:
@@ -14,13 +28,34 @@ class CitySerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class RestorentSerializer(serializers.ModelSerializer):
+class QuartierSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Restorent
+        model = Quartier
         fields = "__all__"
 
 
-class Merchant_UserSerializer(serializers.ModelSerializer):
+class MenuSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Merchant_User
+        model = Menu
         fields = "__all__"
+
+
+class PlatSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Plat
+        fields = "__all__"
+
+
+
+class PlatMenuSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PlatMenu
+        fields = "__all__"
+
+
+
+class IngredientSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ingredient
+        fields = "__all__"
+

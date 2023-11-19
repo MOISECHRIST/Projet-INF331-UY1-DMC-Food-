@@ -11,3 +11,4 @@ python-decouple
 django-filter
 dj-rest-auth
 'dj-rest-auth[with_social]'
+django-cors-headers

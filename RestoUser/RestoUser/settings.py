@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "django_filters",
     "import_export",
+    "corsheaders",
     "merchantuserapp",
 ]
 
@@ -60,6 +61,7 @@ REST_FRAMEWORK = {
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -139,8 +141,18 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-AUTH_USER_MODEL = 'merchantuserapp.Merchant_User'
+#AUTH_USER_MODEL = 'merchantuserapp.Restaurant'
+#ACCOUNT_LOGOUT_ON_GET = True 
+#OLD_PASSWORD_FIELD_ENABLED = True
+#LOGOUT_ON_PASSWORD_CHANGE = False
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_AUTHENTICATION_METHOD = 'username'
+ACCOUNT_EMAIL_REQUIRED = False
 
 
 MEDIA_URL="/media/"
 MEDIA_ROOT= BASE_DIR / "media"
+
+CORS_ALLOWER_ORIGINS=[
+    "http://localhost:4200"
+]
