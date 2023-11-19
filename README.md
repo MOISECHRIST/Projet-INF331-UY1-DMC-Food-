@@ -4,67 +4,67 @@ En date du 19/11/2023 nous avons developpé deux projet api (RestoUser et User) 
 
 Ci dessous l'achitecture de c'est dossiers: 
 <h2>RestoUser</h2>
-RestoUser/
-├── data_resto.csv
-├── manage.py
-├── media
-│   └── resto_img
-│       ├── ...
-├── merchantuserapp
-│   ├── admin.py
-│   ├── apps.py
-│   ├── __init__.py
-│   ├── migrations
-│   │   ├── __init__.py
-│   │   └── __pycache__
-│   │       ├── ...
-│   ├── models.py
-│   ├── __pycache__
-│   │   ├── ...
-│   ├── serializers.py
-│   ├── tests.py
-│   ├── urls.py
-│   └── views.py
-├── requirement.txt
-└── RestoUser
-    ├── asgi.py
-    ├── __init__.py
-    ├── __pycache__
-    │   ├── ...
-    ├── settings.py
-    ├── urls.py
-    └── wsgi.py
+RestoUser/</br>
+├── data_resto.csv</br>
+├── manage.py</br>
+├── media</br>
+│   └── resto_img</br>
+│       ├── ...</br>
+├── merchantuserapp</br>
+│   ├── admin.py</br>
+│   ├── apps.py</br>
+│   ├── __init__.py</br>
+│   ├── migrations</br>
+│   │   ├── __init__.py</br>
+│   │   └── __pycache__</br>
+│   │       ├── ...</br>
+│   ├── models.py</br>
+│   ├── __pycache__</br>
+│   │   ├── ...</br>
+│   ├── serializers.py</br>
+│   ├── tests.py</br>
+│   ├── urls.py</br>
+│   └── views.py</br>
+├── requirement.txt</br>
+└── RestoUser</br>
+    ├── asgi.py</br>
+    ├── __init__.py</br>
+    ├── __pycache__</br>
+    │   ├── ...</br>
+    ├── settings.py</br>
+    ├── urls.py</br>
+    └── wsgi.py</br>
 
 <h2>User</h2>
-User/
-├── data_health.csv
-├── db.sqlite3
-├── freezer.sh
-├── manage.py
-├── media
-│   └── user_img
+User/</br>
+├── data_health.csv</br>
+├── db.sqlite3</br>
+├── freezer.sh</br>
+├── manage.py</br>
+├── media</br>
+│   └── user_img</br>
 │       └── ...
-├── requirement.txt
-├── User
-│   ├── asgi.py
-│   ├── __init__.py
-│   ├── __pycache__
-│   │   ├── ...
-│   ├── settings.py
-│   ├── urls.py
-│   └── wsgi.py
-└── userapp
-    ├── admin.py
-    ├── apps.py
-    ├── __init__.py
-    ├── migrations
-    │   ├── ...
-    │   └── __pycache__
-    │       ├── ...
-    ├── models.py
-    ├── __pycache__
-    │   ├── ...
-    ├── serializers.py
-    ├── tests.py
-    ├── urls.py
-    └── views.py
+├── requirement.txt</br>
+├── User</br>
+│   ├── asgi.py</br>
+│   ├── __init__.py</br>
+│   ├── __pycache__</br>
+│   │   ├── ...</br>
+│   ├── settings.py</br>
+│   ├── urls.py</br>
+│   └── wsgi.py</br>
+└── userapp</br>
+    ├── admin.py</br>
+    ├── apps.py</br>
+    ├── __init__.py</br>
+    ├── migrations</br>
+    │   ├── ...</br>
+    │   └── __pycache__</br>
+    │       ├── ...</br>
+    ├── models.py</br>
+    ├── __pycache__</br>
+    │   ├── ...</br>
+    ├── serializers.py</br>
+    ├── tests.py</br>
+    ├── urls.py</br>
+    └── views.py</br>
