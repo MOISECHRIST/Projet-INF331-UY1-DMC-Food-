@@ -10,5 +10,8 @@ django-import-export
 python-decouple
 django-filter
 dj-rest-auth
-'dj-rest-auth[with_social]'
+dj-rest-auth[with_social]
 django-cors-headers
+pika==1.1.0
+mysqlclient
+django-mysql

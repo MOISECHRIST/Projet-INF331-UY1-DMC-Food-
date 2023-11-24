@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,7 +42,7 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "dj_rest_auth",
     "dj_rest_auth.registration",
-    "django.contrib.sites",
+    #"django.contrib.sites",#Empeche d'ouvrir l'admin django
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
@@ -67,6 +68,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = "RestoUser.urls"
@@ -95,8 +97,12 @@ WSGI_APPLICATION = "RestoUser.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": config("DB_NAME"),
+        "USER": config("DB_USER"),
+        "PASSWORD": config("DB_PASSWORD"),
+        "HOST": config("DB_HOST"),
+        "PORT": config("DB_PORT"),
     }
 }
 
@@ -153,6 +159,4 @@ ACCOUNT_EMAIL_REQUIRED = False
 MEDIA_URL="/media/"
 MEDIA_ROOT= BASE_DIR / "media"
 
-CORS_ALLOWER_ORIGINS=[
-    "http://localhost:4200"
-]
+CORS_ORIGIN_ALLOW_ALL=True
