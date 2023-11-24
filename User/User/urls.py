@@ -18,14 +18,18 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 from userapp.urls import router as userapp_router
+from shopapp.urls import router as shopapp_router
 from django.conf.urls.static import static
 from . import settings
 
 router = routers.DefaultRouter()
 router.registry.extend(userapp_router.registry)
+router_shop = routers.DefaultRouter()
+router_shop.registry.extend(shopapp_router.registry)
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include(router.urls)),
+    path("shop/", include(router_shop.urls)),
     path("", include("dj_rest_auth.urls")),
     path("registration/", include("dj_rest_auth.registration.urls")),
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "import_export",
     "corsheaders",
     "merchantuserapp",
+    "shopapp",
 ]
 
 REST_FRAMEWORK = {

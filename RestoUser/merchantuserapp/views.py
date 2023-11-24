@@ -9,6 +9,7 @@ from merchantuserapp.serializers import (
     QuartierSerializer,
     RestaurantSerializer,
     UserSerializer,
+    PlatSerializer,
 )
 from merchantuserapp.models import *
 from rest_framework.permissions import IsAuthenticated
@@ -64,6 +65,13 @@ class MenuViewSet(viewsets.ModelViewSet):
     search_fields = ["restaurant"]
 
 
+class PlatViewSet(viewsets.ModelViewSet):
+    queryset = Plat.objects.all()
+    permission_classes = (IsAuthenticated,)
+    serializer_class = PlatSerializer
+    filterset_fields = ["nom_plat","description"]
+    search_fields = ["nom_plat"]
+
 class PlatMenuViewSet(viewsets.ModelViewSet):
     queryset = PlatMenu.objects.all()
     permission_classes = (IsAuthenticated,)
@@ -76,6 +84,6 @@ class IngredientViewSet(viewsets.ModelViewSet):
     queryset = Ingredient.objects.all()
     permission_classes = (IsAuthenticated,)
     serializer_class = IngredientSerializer
-    filterset_fields = ["plat", "menu","prix","quantite","unite_quantite"]
-    search_fields = ["restaurant"]
+    filterset_fields = ["plat", "nom_ingredient"]
+    search_fields = ["nom_ingredient"]
 

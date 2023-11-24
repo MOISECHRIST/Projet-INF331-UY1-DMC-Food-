@@ -9,6 +9,7 @@ router.register("Quartier", QuartierViewSet)
 router.register("Restaurant", RestaurantViewSet)
 router.register("Menu", MenuViewSet)
 router.register("PlatMenu", PlatMenuViewSet)
+router.register("Plat", PlatViewSet)
 router.register("Ingredient", IngredientViewSet)
 router.register("me", MeViewSet, basename="me")
 
