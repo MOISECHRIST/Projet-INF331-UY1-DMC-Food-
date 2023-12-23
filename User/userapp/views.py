@@ -7,9 +7,7 @@ from django.contrib.auth.models import User
 from userapp.producer import publish
 
 class MeViewSet(viewsets.ViewSet):
-    
-    permission_classes = (IsAuthenticated,)
-    
+    #permission_classes = (IsAuthenticated,)
     def list(self,request):
         user=User.objects.get(username=request.user)
         user_data=UserSerializer(user).data
@@ -17,7 +15,7 @@ class MeViewSet(viewsets.ViewSet):
 
 class Health_ProblemViewSet(viewsets.ModelViewSet):
     queryset = Health_Problem.objects.all()
-    permission_classes = (IsAuthenticated,)
+    #permission_classes = (IsAuthenticated,)
     serializer_class = Health_ProblemSerializer
     filterset_fields = [
         "name",
@@ -62,7 +60,7 @@ class Health_ProblemViewSet(viewsets.ModelViewSet):
 
 class Simple_UserViewSet(viewsets.ModelViewSet):
     queryset = Simple_User.objects.all()
-    permission_classes = (IsAuthenticated,)
+    #permission_classes = (IsAuthenticated,)
     serializer_class = Simple_UserSerializer
     filterset_fields = ["health_problem"]
     search_fields = ["username"]

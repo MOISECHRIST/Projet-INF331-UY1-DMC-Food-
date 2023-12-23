@@ -4,8 +4,6 @@ import json
 
 
 params=pika.URLParameters(config("RABBITMQ_KEY"))
-
-
 connection=pika.BlockingConnection(params)
 
 channel=connection.channel()

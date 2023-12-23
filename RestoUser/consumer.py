@@ -1,18 +1,12 @@
 import pika
 from decouple import config
-import django
-from sys import path
-from os import environ
+
 import json
 
 
-#params=pika.URLParameters(config("RABBITMQ_KEY"))
-#connection=pika.BlockingConnection(params)
-path.append('../RestoUser/settings.py') #Your path to settings.py file
-environ.setdefault('DJANGO_SETTINGS_MODULE', 'User.settings') 
-django.setup()
+params=pika.URLParameters(config("RABBITMQ_KEY"))
+connection=pika.BlockingConnection(params)
 
-connection = pika.BlockingConnection(pika.ConnectionParameters('localhost', heartbeat=600, blocked_connection_timeout=300))
 channel=connection.channel()
 
 channel.queue_declare(queue='restoshop')

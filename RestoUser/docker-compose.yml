@@ -24,9 +24,10 @@ services :
     image: mysql:latest
     restart: always
     environment:
-      MYSQL_DATABASE: dbforapp
-      MYSQL_USER: mysql
-      MYSQL_PASSWORD: mysql
+      MYSQL_DATABASE: ${DB_NAME}
+      #MYSQL_USER: ${DB_USER}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      
     volumes:
       - .dbdata:/var/lib/mysql
     ports:
