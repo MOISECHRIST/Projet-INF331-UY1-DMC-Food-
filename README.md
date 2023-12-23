@@ -43,7 +43,7 @@ User/</br>
 ├── manage.py</br>
 ├── media</br>
 │   └── user_img</br>
-│       └── ...
+│       └── ...</br>
 ├── requirement.txt</br>
 ├── User</br>
 │   ├── asgi.py</br>
