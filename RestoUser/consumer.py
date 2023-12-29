@@ -1,8 +1,12 @@
 import pika
 from decouple import config
-
 import json
+import pymysql.cursors
 
+dbconn = pymysql.connect(host=config('DB_HOST'),
+                                user=config('DB_USER'),
+                                password=config('DB_PASSWORD'),
+                                database=config('DB_NAME'))
 
 params=pika.URLParameters(config("RABBITMQ_KEY"))
 connection=pika.BlockingConnection(params)

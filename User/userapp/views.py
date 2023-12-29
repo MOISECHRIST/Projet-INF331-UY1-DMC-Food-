@@ -6,12 +6,12 @@ from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import User
 from userapp.producer import publish
 
-class MeViewSet(viewsets.ViewSet):
-    #permission_classes = (IsAuthenticated,)
-    def list(self,request):
-        user=User.objects.get(username=request.user)
-        user_data=UserSerializer(user).data
-        return Response(user_data)
+#class MeViewSet(viewsets.ViewSet):
+#    #permission_classes = (IsAuthenticated,)
+#    def list(self,request):
+#        user=User.objects.get(username=request.user)
+#        user_data=UserSerializer(user).data
+#        return Response(user_data)
 
 class Health_ProblemViewSet(viewsets.ModelViewSet):
     queryset = Health_Problem.objects.all()

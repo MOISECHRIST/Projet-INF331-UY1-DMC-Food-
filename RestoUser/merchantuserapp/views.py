@@ -17,14 +17,14 @@ from django.contrib.auth.models import User
 from rest_framework.response import Response
 from merchantuserapp.producer import publish
 
-class MeViewSet(viewsets.ViewSet):
+#class MeViewSet(viewsets.ViewSet):
     
     #permission_classes = (IsAuthenticated,)
     
-    def list(self,request):
-        user=User.object.get(username=request.user)
-        user_data=UserSerializer(user).data
-        return Response(user_data)
+ #   def list(self,request):
+  #      user=User.object.get(username=request.user)
+  #      user_data=UserSerializer(user).data
+  #      return Response(user_data)
 
 
 

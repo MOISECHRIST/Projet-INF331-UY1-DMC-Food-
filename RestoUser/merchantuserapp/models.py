@@ -39,6 +39,7 @@ class Restaurant(models.Model):
     longitude = models.FloatField(default=0.0)
     latitude = models.FloatField(default=0.0)
     image = models.ImageField(upload_to="resto_img", blank=True, null=True)
+    livraison_service=models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.restorent_name}, {self.quartier}"

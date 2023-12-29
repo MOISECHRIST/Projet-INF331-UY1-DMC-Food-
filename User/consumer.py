@@ -2,7 +2,12 @@ import pika
 from decouple import config
 import json
 from os import environ
-from ..RestoUser.merchantuserapp.models import *
+import pymysql.cursors
+
+dbconn = pymysql.connect(host=config('DB_HOST'),
+                                user=config('DB_USER'),
+                                password=config('DB_PASSWORD'),
+                                database=config('DB_NAME'))
 
 
 params=pika.URLParameters(config("RABBITMQ_KEY"))
@@ -10,14 +15,18 @@ connection=pika.BlockingConnection(params)
 
 channel=connection.channel()
 
-channel.queue_declare(queue='usershop')
+channel.queue_declare(queue='shop')
 
 def callback(ch, methode, properties, body):
+    print("Received in restoshop...")
+    print(body)
+    data=json.loads(body)
+    print(data)
+
     #Country
     if properties.content_type=="Country_created":
-        country=Country(id=body["id"],name=body["name"]) 
-        country.save()
-        print(f"save successfully {body['name']}")
+        
+        print(f"save successfully {data['name']}")
     elif properties.content_type=="Country_updated":
         pass
     elif properties.content_type=="Country_partial_updated":
