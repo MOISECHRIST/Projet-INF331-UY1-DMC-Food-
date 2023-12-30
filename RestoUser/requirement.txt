@@ -24,9 +24,9 @@ hyperlink==21.0.0
 idna==3.4
 incremental==22.10.0
 MarkupPy==1.14
-mysqlclient==2.2.0
 oauthlib==3.2.2
 odfpy==1.4.1
+pymysql
 openpyxl==3.1.2
 pika==1.1.0
 Pillow==10.1.0

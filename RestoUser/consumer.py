@@ -8,12 +8,13 @@ dbconn = pymysql.connect(host=config('DB_HOST'),
                                 password=config('DB_PASSWORD'),
                                 database=config('DB_NAME'))
 
-params=pika.URLParameters(config("RABBITMQ_KEY"))
+#params=pika.URLParameters(config("RABBITMQ_KEY"))
+params=pika.ConnectionParameters(host=config("DB_HOST"))
 connection=pika.BlockingConnection(params)
 
 channel=connection.channel()
 
-channel.queue_declare(queue='restoshop')
+channel.queue_declare(queue='usershop')
 
 def callback(ch, methode, properties, body):
     print("Received in restoshop...")
@@ -42,7 +43,8 @@ def callback(ch, methode, properties, body):
         pass
     pass
 
-channel.basic_consume(queue='restoshop',on_message_callback=callback)
+channel.basic_consume(queue='usershop',on_message_callback=callback)
 print("Started consuming")
 channel.start_consuming()
 channel.close()
+#dbconn.close()

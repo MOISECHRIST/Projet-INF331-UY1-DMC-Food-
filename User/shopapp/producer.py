@@ -5,10 +5,11 @@ import json
 
 
 def publish(method,body):
-    params=pika.URLParameters(config("RABBITMQ_KEY"))
+    #params=pika.URLParameters(config("RABBITMQ_KEY"))
+    params=pika.ConnectionParameters(host="localhost")
     connection=pika.BlockingConnection(params)
 
 
     channel=connection.channel()
     properties=pika.BasicProperties(method)
-    channel.basic_publish(exchange='',routing_key='shop', body=json.dumps(body), properties=properties) 
+    channel.basic_publish(exchange='',routing_key='usershop', body=json.dumps(body), properties=properties) 

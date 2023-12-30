@@ -11,6 +11,7 @@ services :
       - .:/app
     depends_on:
       - db
+      - rabbitmq
 
   queue:
     build:
@@ -19,6 +20,13 @@ services :
     command: 'python consumer.py'
     depends_on:
       - db
+      - rabbitmq
+
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    ports:
+      - "5674:5672"
+      - "15674:15672"
 
   db:
     image: mysql:latest
