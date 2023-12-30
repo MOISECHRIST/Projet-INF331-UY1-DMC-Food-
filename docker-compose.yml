@@ -28,7 +28,7 @@ services :
 
   queueresto:
     build:
-      context: ./User
+      context: ./RestoUser
       dockerfile: Dockerfile
     command: 'python consumer.py'
     depends_on:
