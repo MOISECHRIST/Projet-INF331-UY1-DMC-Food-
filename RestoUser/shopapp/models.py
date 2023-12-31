@@ -4,20 +4,9 @@ from django.utils.timezone import now
 # Create your models here.
 
 class SimpleUser(models.Model):
-    GENDER = [
-        ("-", "None"),
-        ("f", "Female"),
-        ("m", "Male"),
-    ]
-
     id=models.PositiveIntegerField(primary_key=True, null=False, blank=False)
-    username=models.CharField(max_length=150, unique=True)
-    first_name=models.CharField(max_length=250)
-    last_name=models.CharField(max_length=250)
     email=models.EmailField(blank=True)
     phone_number = models.CharField(max_length=255, blank=True)
-    image = models.ImageField(upload_to="user_img", blank=True, null=True)
-    gender = models.CharField(max_length=1, choices=GENDER, null=False, blank=False)
 
 class Commande(models.Model):
     STATUS=[

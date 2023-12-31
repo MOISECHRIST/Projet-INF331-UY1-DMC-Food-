@@ -362,10 +362,10 @@ class PlatViewSet(viewsets.ModelViewSet):
 
 class CommandeViewSet(viewsets.ModelViewSet):
     queryset = Commande.objects.all()
-    #permission_classes = (IsAuthenticated,)
     serializer_class = CommandeSerializer
-    filterset_fields = ["numero","description"]
-    search_fields = ["nom_plat"]
+    #permission_classes = (IsAuthenticated,)
+    filterset_fields = ["status","date_commande","utilisateur","restaurant","plat"]
+    search_fields = ["status"]
 
     def list(self, request):
         objects=Commande.objects.all()
@@ -397,7 +397,7 @@ class CommandeViewSet(viewsets.ModelViewSet):
         serializer=CommandeSerializer(instance=object, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        publish("Commande_updated",serializer.data)
+        publish("Commande_partialUpdate",serializer.data)
         return Response(serializer.data)
     
     def destroy(self,request,pk):

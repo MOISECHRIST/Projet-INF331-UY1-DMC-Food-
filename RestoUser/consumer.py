@@ -9,42 +9,92 @@ dbconn = pymysql.connect(host=config('DB_HOST'),
                                 database=config('DB_NAME'))
 
 #params=pika.URLParameters(config("RABBITMQ_KEY"))
-params=pika.ConnectionParameters(host=config("DB_HOST"))
+params=pika.ConnectionParameters(host="localhost")
 connection=pika.BlockingConnection(params)
 
 channel=connection.channel()
 
 channel.queue_declare(queue='usershop')
 
+def query_to_table(dbconn, methode ,data):
+    model_name=methode.split('_')[0]
+    action=methode.split('_')[1]
+    if model_name.upper()=="SIMPLEUSER":
+        table="shopapp_simpleuser"
+    else:
+        table="shopapp_commande"
+    
+    if action.upper()=="CREATED":
+        values=''
+        for i in range(len(data.keys())): 
+            if i==0:
+                values='%s'
+            else:
+                values+=',%s'
+        
+        sql=f"INSERT INTO `{table}` values({values})"
+        print(sql)
+
+        list_data=[]
+        for key in data.keys():
+            list_data+=[data[key]]
+        
+        print(list(list_data))
+
+        with dbconn.cursor() as cursor:
+            cursor.execute(sql, list(list_data))
+            dbconn.commit()
+
+    elif action.upper()=="UPDATED" or action.upper()=="PARTIALUPDATED":
+        values=''
+        i=0
+        for key in data.keys(): 
+            if i==0:
+                values=f"{key}={data[key]}"
+            else:
+                values+=f",{key}={data[key]}"
+
+            i+=1
+        
+        pk="id"
+        sql=f"UPDATE `{table}` set {values} where id={data[pk]}"
+        print(sql)
+
+        with dbconn.cursor() as cursor:
+            cursor.execute(sql)
+            dbconn.commit()
+    
+    else:       
+        pk="id"
+        sql=f"DELETE FROM `{table}` where id={data[pk]}"
+        print(sql)
+
+        with dbconn.cursor() as cursor:
+            cursor.execute(sql)
+            dbconn.commit()
+
+
 def callback(ch, methode, properties, body):
     print("Received in restoshop...")
-    print(body)
     data=json.loads(body)
     print(data)
-
-    #Simple_User
-    if properties.content_type=="Simple_User_created":
-        pass
-    elif properties.content_type=="Simple_User_updated":
-        pass
-    elif properties.content_type=="Simple_User_partial_updated":
-        pass
-    elif properties.content_type=="Simple_User_deleted":
-        pass
-
-    #Commande
-    elif properties.content_type=="Commande_created":
-        pass
-    elif properties.content_type=="Commande_updated":
-        pass
-    elif properties.content_type=="Commande_partial_updated":
-        pass
-    elif properties.content_type=="Commande_deleted":
-        pass
-    pass
+    methode = properties.content_type
+    model_name=methode.split('_')[0]
+    action=methode.split('_')[1]
+    if model_name.upper()=="SIMPLEUSER":
+        list_keys=["id","email","phone_number"]
+        new_data={}
+        for key in list_keys:
+            if key=="email":
+                new_data[key]=""
+            else:
+                new_data[key]=data[key]
+        query_to_table(dbconn,methode,new_data)
+    else:
+        query_to_table(dbconn,methode,data)
 
 channel.basic_consume(queue='usershop',on_message_callback=callback)
 print("Started consuming")
 channel.start_consuming()
 channel.close()
-#dbconn.close()
+dbconn.close()

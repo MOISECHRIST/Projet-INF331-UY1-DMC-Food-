@@ -38,6 +38,7 @@ class Restaurant(models.Model):
     latitude = models.FloatField(default=0.0)
     image = models.ImageField(upload_to="resto_img", blank=True, null=True)
     livraison_service=models.BooleanField(default=False)
+    
 
     def __str__(self):
         return f"{self.restorent_name}, {self.quartier}"
@@ -62,17 +63,28 @@ class Menu(models.Model):
         return f"{self.restaurant.restorent_name}/{self.jour_semaine}"
 
 #6
+class Ingredient(models.Model):
+    id=models.PositiveIntegerField(primary_key=True)
+    nom_ingredient=models.CharField(max_length=255,null=False, blank=False, unique=True)
+    description=models.TextField(blank=True,null=True)
+
+    def __str__(self):
+        return self.nom_ingredient
+
+
+#7
 class Plat(models.Model):
     id=models.PositiveIntegerField(primary_key=True)
     nom_plat=models.CharField(max_length=255,null=False, blank=False, unique=True)
     description=models.TextField(blank=True,null=True)
     image_plat=models.ImageField(upload_to="plat_img", blank=True, null=True)
     recette=models.TextField(blank=True,null=True)
+    ingredients=models.ManyToManyField(Ingredient, null=True)
 
     def __str__(self):
         return self.nom_plat
 
-#7
+#8
 class PlatMenu(models.Model):
     id=models.PositiveIntegerField(primary_key=True)
     plat=models.ForeignKey(Plat,on_delete=models.CASCADE)
@@ -80,19 +92,10 @@ class PlatMenu(models.Model):
     prix=models.IntegerField(default=1000)
     quantite=models.IntegerField(default=1)
     unite_quantite=models.CharField(max_length=255,default="plat")
+    nb_etoile=models.IntegerField(default=0)
 
     def __str__(self):
         return f"{self.menu.restaurant.restorent_name}({self.menu.jour_semaine}) : {self.plat.nom_plat}"
-
-#8
-class Ingredient(models.Model):
-    id=models.PositiveIntegerField(primary_key=True)
-    nom_ingredient=models.CharField(max_length=255,null=False, blank=False, unique=True)
-    description=models.TextField(blank=True,null=True)
-    plat=models.ManyToManyField(Plat)
-
-    def __str__(self):
-        return self.nom_ingredient
 
 
 def NumeroGen():

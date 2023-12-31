@@ -66,7 +66,7 @@ class CountryViewSet(viewsets.ModelViewSet):
         serializer=CountrySerializer(instance=country, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        publish("Country_partial_updated",serializer.data)
+        publish("Country_partialUpdated",serializer.data)
         return Response(serializer.data)
     
     def destroy(self,request,pk):
@@ -113,7 +113,7 @@ class CityViewSet(viewsets.ModelViewSet):
         serializer=CitySerializer(instance=city, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        publish("City_partial_updated",serializer.data)
+        publish("City_partialUpdated",serializer.data)
         return Response(serializer.data)
     
     def destroy(self,request,pk):
@@ -159,7 +159,7 @@ class QuartierViewSet(viewsets.ModelViewSet):
         serializer=QuartierSerializer(instance=quartier, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        publish("Quartier_partial_updated",serializer.data)
+        publish("Quartier_partialUpdated",serializer.data)
         return Response(serializer.data)
     
     def destroy(self,request,pk):
@@ -206,7 +206,7 @@ class RestaurantViewSet(viewsets.ModelViewSet):
         serializer=RestaurantSerializer(instance=restaurant, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        publish("Restaurant_partial_updated",serializer.data)
+        publish("Restaurant_partialUpdated",serializer.data)
         return Response(serializer.data)
     
     def destroy(self,request,pk):
@@ -252,7 +252,7 @@ class MenuViewSet(viewsets.ModelViewSet):
         serializer=MenuSerializer(instance=object, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        publish("Menu_partial_updated",serializer.data)
+        publish("Menu_partialUpdated",serializer.data)
         return Response(serializer.data)
     
     def destroy(self,request,pk):
@@ -298,7 +298,7 @@ class PlatViewSet(viewsets.ModelViewSet):
         serializer=PlatSerializer(instance=object, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        publish("Plat_partial_updated",serializer.data)
+        publish("Plat_partialUpdated",serializer.data)
         return Response(serializer.data)
     
     def destroy(self,request,pk):
@@ -344,7 +344,7 @@ class PlatMenuViewSet(viewsets.ModelViewSet):
         serializer=PlatMenuSerializer(instance=object, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        publish("PlatMenu_partial_updated",serializer.data)
+        publish("PlatMenu_partialUpdated",serializer.data)
         return Response(serializer.data)
     
     def destroy(self,request,pk):
@@ -390,7 +390,7 @@ class IngredientViewSet(viewsets.ModelViewSet):
         serializer=IngredientSerializer(instance=object, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        publish("Ingredient_partial_updated",serializer.data)
+        publish("Ingredient_partialUpdated",serializer.data)
         return Response(serializer.data)
     
     def destroy(self,request,pk):

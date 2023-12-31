@@ -12,8 +12,8 @@ class SimpleUserViewSet(viewsets.ModelViewSet):
     queryset = SimpleUser.objects.all()
     serializer_class = SimpleUserSerializer
     #permission_classes = (IsAuthenticated,)
-    filterset_fields = ["username", "first_name", "last_name"]
-    search_fields = ["username"]
+    filterset_fields = ["email", "phone_number"]
+    search_fields = ["email"]
 
     def list(self, request):
         objects=SimpleUser.objects.all()

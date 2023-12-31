@@ -79,7 +79,7 @@ class Simple_UserViewSet(viewsets.ModelViewSet):
         serializer=Simple_UserSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        publish("Simple_User_created",serializer.data)
+        publish("SimpleUser_created",serializer.data)
         return Response(serializer.data)
     
     def update(self,request,pk):
@@ -87,7 +87,7 @@ class Simple_UserViewSet(viewsets.ModelViewSet):
         serializer=Simple_UserSerializer(instance=object, data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        publish("Simple_User_updated",serializer.data)
+        publish("SimpleUser_updated",serializer.data)
         return Response(serializer.data)
     
     def partial_update(self,request,pk):
@@ -95,11 +95,11 @@ class Simple_UserViewSet(viewsets.ModelViewSet):
         serializer=Simple_UserSerializer(instance=object, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        publish("Simple_User_partial_updated",serializer.data)
+        publish("SimpleUser_partialUpdated",serializer.data)
         return Response(serializer.data)
     
     def destroy(self,request,pk):
         object=Simple_User.objects.get(id=pk)
         object.delete()
-        publish("Simple_User_deleted",pk)
+        publish("SimpleUser_deleted",pk)
         return Response(status=status.HTTP_204_NO_CONTENT)
