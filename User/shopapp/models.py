@@ -3,8 +3,6 @@ from userapp.models import *
 import random
 import string
 from decouple import config
-from shopapp.naive_bayes import model_prediction
-
 
 
 #1
@@ -14,6 +12,7 @@ class Country(models.Model):
 
     def __str__(self):
         return self.name
+
 
 #2
 class City(models.Model):
@@ -110,7 +109,7 @@ class PlatMenu(models.Model):
 def NumeroGenMenu():
         taille=20
         while True:
-            numero=''.join(random.choises(string.ascii_uppercase, k=taille))
+            numero=''.join(random.choices(string.ascii_uppercase, k=taille))
             if Menu.objects.filter(numero=numero).count()==0:
                 break
         return numero  
@@ -119,7 +118,7 @@ def NumeroGenMenu():
 def NumeroGenCommande():
         taille=20
         while True:
-            numero=''.join(random.choises(string.ascii_uppercase, k=taille))
+            numero=''.join(random.choices(string.ascii_uppercase, k=taille))
             if Commande.objects.filter(numero=numero).count()==0:
                 break
         return numero  
@@ -159,7 +158,7 @@ class ApreciationUser(models.Model):
         return str(self.nb_etoile)
     
 class RechercherPlat(models.Model):
-    numero=models.CharField(max_length=20,null=False, blank=False, unique=True)
+    numero=models.CharField(max_length=20,null=True, blank=True)
     date_recherche=models.DateTimeField(default=now())
     resultat=models.CharField(max_length=255, blank=True)
     user=models.ForeignKey(User,on_delete=models.CASCADE)
@@ -177,7 +176,7 @@ class RechercherPlat(models.Model):
 def NumeroGenRecherche():
         taille=20
         while True:
-            numero=''.join(random.choises(string.ascii_uppercase, k=taille))
+            numero=''.join(random.choices(string.ascii_uppercase, k=taille))
             if Menu.objects.filter(numero=numero).count()==0:
                 break
         return numero
@@ -186,14 +185,17 @@ class RechercherParDescription(RechercherPlat):
     texte_description=models.TextField(blank=False, null=False)
 
     def save(self, *agrs, **kwargs):
-        self.resultat=model_prediction(self.texte_description)
+        #self.resultat=model_prediction(self.texte_description)
         user = kwargs.pop('user', None)
+        resultat = kwargs.pop('resultat', None)
         if user is not None:
-            super().save(user=user)
+            self.user=user
+        if resultat is not None:
+            self.resultat=resultat
         super(RechercherParDescription, self).save(*agrs, **kwargs)
 
 class RechercherParImage(RechercherPlat):
-    image=models.ImageField(upload_to="resto_img",blank=False, null=False)
+    image=models.ImageField(upload_to="recherche_img",blank=False, null=False)
 
 
     def save(self, *agrs, **kwargs):

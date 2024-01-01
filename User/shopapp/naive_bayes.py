@@ -20,7 +20,11 @@ from nltk.corpus import stopwords
 nltk.download("punkt")
 nltk.download('wordnet')
 nltk.download('stopwords')
+from pathlib import Path
 
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+VECTORIZER_PATH=BASE_DIR / "models/tfidf_vectorizer_2024-01-01 17:38:24.544074.joblib"
+MODEL_PATH=BASE_DIR / "models/multinomial_naive_bayes_2024-01-01 17:38:24.541295.joblib"
 
 def text_clean(text, method, rm_stop, language):
     text = re.sub(r"\n","",text)   #remove line breaks
@@ -54,12 +58,15 @@ def text_clean(text, method, rm_stop, language):
     return text
 
 
+import os
+
 
 def model_prediction(texte):
     x_new=[texte]
     x_new[0]=text_clean(x_new[0],'L',True,'french')
-    vectorizer=load("models/tfidf_vectorizer_2024-01-01 17:38:24.544074.joblib")
-    model=load("models/multinomial_naive_bayes_2024-01-01 17:38:24.541295.joblib")
+    
+    vectorizer=load(VECTORIZER_PATH)
+    model=load(MODEL_PATH)
     x_new_transformed = vectorizer.transform(x_new)
     pred= model.predict(x_new_transformed)
     return pred[0]

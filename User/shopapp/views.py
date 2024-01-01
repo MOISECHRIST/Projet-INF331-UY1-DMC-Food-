@@ -18,7 +18,7 @@ from .models import *
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from shopapp.producer import publish
-
+from shopapp.naive_bayes import model_prediction
 
 
 
@@ -465,7 +465,8 @@ class RechercherParDescriptionViewSet(viewsets.ModelViewSet):
     def create(self,request):
         serializer=RechercherParDescriptionSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save(user=request.user)
+        resultat=model_prediction(request.POST["texte_description"])
+        serializer.save(user=request.user,resultat=resultat)
         return Response(serializer.data)
 
 class RechercherParImageViewSet(viewsets.ModelViewSet):
@@ -478,5 +479,5 @@ class RechercherParImageViewSet(viewsets.ModelViewSet):
     def create(self,request):
         serializer=RechercherParImageSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save(user=request.user)
+        serializer.save(user=request.user,)
         return Response(serializer.data)
