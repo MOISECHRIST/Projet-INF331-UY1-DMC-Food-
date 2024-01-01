@@ -18,4 +18,5 @@ admin.site.register(Ingredient)
 admin.site.register(Restaurant)
 #9
 admin.site.register(Commande)
-
+#10
+admin.site.register(ApreciationUser)

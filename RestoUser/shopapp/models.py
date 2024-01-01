@@ -21,3 +21,17 @@ class Commande(models.Model):
     utilisateur=models.ForeignKey(SimpleUser,on_delete=models.CASCADE)
     restaurant=models.ForeignKey(Restaurant,on_delete=models.CASCADE)
     plat=models.ForeignKey(Plat,on_delete=models.CASCADE)
+
+class ApreciationUser(models.Model):
+    START=[
+        ("0",0),
+        ("1",1),
+        ("2",2),
+        ("3",3),
+        ("4",4),
+        ("5",5),
+    ]
+    id=models.PositiveIntegerField(primary_key=True, null=False, blank=False)
+    nb_etoile=models.IntegerField(choices=START)
+    utilisateur=models.ForeignKey(SimpleUser,on_delete=models.CASCADE)
+    plat=models.ForeignKey(PlatMenu,on_delete=models.CASCADE)

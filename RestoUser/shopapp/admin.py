@@ -4,3 +4,4 @@ from .models import *
 
 admin.site.register(SimpleUser)
 admin.site.register(Commande)
+admin.site.register(ApreciationUser)

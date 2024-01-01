@@ -3,6 +3,7 @@ from rest_framework import viewsets, status
 from shopapp.serializers import (
     SimpleUserSerializer,
     CommandeSerializer,
+    ApreciationUserSerializer,
 )
 from .models import *
 from rest_framework.permissions import IsAuthenticated
@@ -95,3 +96,12 @@ class CommandeViewSet(viewsets.ModelViewSet):
         object.delete()
         publish("Commande_deleted",pk)
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class ApreciationUserViewSet(viewsets.ViewSet):
+    filterset_fields = ["utilisateur","plat"]
+    search_fields = ["nb_etoile"]
+
+    def list(self,request):
+        object=ApreciationUser.objects.filter()
+        data=ApreciationUserSerializer(object).data
+        return Response(data)

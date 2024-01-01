@@ -16,11 +16,13 @@ channel=connection.channel()
 
 channel.queue_declare(queue='usershop')
 
-def query_to_table(dbconn, methode ,data):
+def query_to_table(dbconn, methode ,data,fields):
     model_name=methode.split('_')[0]
     action=methode.split('_')[1]
     if model_name.upper()=="SIMPLEUSER":
         table="shopapp_simpleuser"
+    elif model_name.upper()=="APRECIATIONUSER":
+        table="shopapp_apreciationuser"
     else:
         table="shopapp_commande"
     
@@ -50,9 +52,9 @@ def query_to_table(dbconn, methode ,data):
         i=0
         for key in data.keys(): 
             if i==0:
-                values=f"{key}={data[key]}"
+                values=f"{fields[i]}={data[key]}"
             else:
-                values+=f",{key}={data[key]}"
+                values+=f",{fields[i]}={data[key]}"
 
             i+=1
         
@@ -89,9 +91,13 @@ def callback(ch, methode, properties, body):
                 new_data[key]=""
             else:
                 new_data[key]=data[key]
-        query_to_table(dbconn,methode,new_data)
+        query_to_table(dbconn,methode,new_data, list_keys)
+    elif model_name.upper()=="APRECIATIONUSER":
+        fields=["id","numero","jour_semaine","restaurant_id"]
+        query_to_table(dbconn,methode,data,fields)
     else:
-        query_to_table(dbconn,methode,data)
+        fields=["id","numero","status","date_commande","plat_id","restaurant_id"]
+        query_to_table(dbconn,methode,data, fields)
 
 channel.basic_consume(queue='usershop',on_message_callback=callback)
 print("Started consuming")

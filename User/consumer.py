@@ -18,7 +18,7 @@ channel=connection.channel()
 
 channel.queue_declare(queue='restoshop')
 
-def query_to_tables(dbconn, methode ,data):
+def query_to_tables(dbconn, methode ,data, fields):
     model_name=methode.split('_')[0]
     action=methode.split('_')[1]
     if model_name.upper()=="COUNTRY":
@@ -68,9 +68,9 @@ def query_to_tables(dbconn, methode ,data):
         i=0
         for key in data.keys(): 
             if i==0:
-                values=f"{key}={data[key]}"
+                values=f"{fields[i]}={data[key]}"
             else:
-                values+=f",{key}={data[key]}"
+                values+=f",{fields[i]}={data[key]}"
 
             i+=1
         
@@ -99,14 +99,18 @@ def callback(ch, methode, properties, body):
     
     model_name=methode.split('_')[0]
     action=methode.split('_')[1]
+    #1
     if model_name.upper()=="RESTAURANT":
         list_keys=["id","restorent_name","phone_number","longitude","latitude","image","quartier","livraison_service"]
+        fields=["id","restorent_name","phone_number","longitude","latitude","image","quartier_id","livraison_service"]
         new_data={}
         for key in list_keys:
             new_data[key]=data[key]
-        query_to_tables(dbconn,methode,new_data)
+        query_to_tables(dbconn,methode,new_data, fields)
+    #2
     elif model_name.upper()=="INGREDIENT":
         table="shopapp_ingredient_plat"
+        fields=["id","nom_ingredient","description"]
         if action.upper()=="DELETED":
             with dbconn.cursor() as cursor:
                 pk="id"
@@ -114,9 +118,10 @@ def callback(ch, methode, properties, body):
                 print(sql)
                 cursor.execute(sql)
                 dbconn.commit()
-                query_to_tables(dbconn,methode,data)
+                query_to_tables(dbconn,methode,data,fields)
         else:
-            query_to_tables(dbconn,methode,data)
+            query_to_tables(dbconn,methode,data,fields)
+    #3
     elif model_name.upper()=="PLAT":
         table="shopapp_plat_ingredients"
         list_keys=["id","nom_plat","description","image_plat","recette"]
@@ -130,9 +135,9 @@ def callback(ch, methode, properties, body):
                 print(sql)
                 cursor.execute(sql)
                 dbconn.commit()
-            query_to_tables(dbconn,methode,new_data)
+            query_to_tables(dbconn,methode,new_data,list_keys)
         else:
-            query_to_tables(dbconn,methode,new_data)
+            query_to_tables(dbconn,methode,new_data,list_keys)
             ingredients=data["ingredients"]
             if action.upper()=="CREATED":
                 with dbconn.cursor() as cursor:
@@ -155,10 +160,31 @@ def callback(ch, methode, properties, body):
                         print(sql)
                         cursor.execute(sql, (data["id"], ingredients[i]))
                         dbconn.commit()
-
+    #4
+    elif model_name.upper()=="COUNTRY":
+        fields=["id","name"]
+        query_to_tables(dbconn,methode,data,fields)
+    #5
+    elif model_name.upper()=="CITY":
+        fields=["id","name","country_id"]
+        query_to_tables(dbconn,methode,data,fields)
+    #6
+    elif model_name.upper()=="QUARTIER":
+        fields=["id","name","city_id"]
+        query_to_tables(dbconn,methode,data,fields)
+    #7
+    elif model_name.upper()=="MENUPLAT":
+        fields=["id","prix","quantite","unite_quantite","menu_id","plat_id"]
+        query_to_tables(dbconn,methode,data,fields)
+    #8
+    elif model_name.upper()=="MENU":
+        fields=["id","numero","jour_semaine","restaurant_id"]
+        query_to_tables(dbconn,methode,data,fields)
+    #10
     else:
-        query_to_tables(dbconn,methode,data)
-
+        fields=["id","numero","status","date_commande","plat_id","restaurant_id"]
+        query_to_tables(dbconn,methode,data,fields)
+#ApreciationUser
 channel.basic_consume(queue='restoshop',on_message_callback=callback, auto_ack=True)
 print("Started consuming")
 channel.start_consuming()

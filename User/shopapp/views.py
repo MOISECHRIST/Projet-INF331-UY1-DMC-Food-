@@ -10,6 +10,7 @@ from shopapp.serializers import (
     RestaurantSerializer,
     PlatSerializer,
     CommandeSerializer,
+    ApreciationUserSerializer,
 )
 from .models import *
 from rest_framework.permissions import IsAuthenticated
@@ -404,4 +405,50 @@ class CommandeViewSet(viewsets.ModelViewSet):
         object=Commande.objects.get(id=pk)
         object.delete()
         publish("Commande_destroy",pk)
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+class ApreciationUserViewSet(viewsets.ModelViewSet):
+    queryset = ApreciationUser.objects.all()
+    serializer_class = ApreciationUserSerializer
+    #permission_classes = (IsAuthenticated,)
+    filterset_fields = ["utilisateur","plat"]
+    search_fields = ["nb_etoile"]
+
+    def list(self, request):
+        objects=ApreciationUser.objects.all()
+        data=ApreciationUserSerializer(objects, many=True).data
+        return Response(data)
+    
+    def retrieve(self,request,pk):
+        object=ApreciationUser.objects.get(id=pk)
+        data=ApreciationUserSerializer(object).data
+        return Response(data)
+    
+    def create(self,request):
+        serializer=ApreciationUserSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        publish("ApreciationUser_created",serializer.data)
+        return Response(serializer.data)
+    
+    def update(self,request,pk):
+        object=ApreciationUser.objects.get(id=pk)
+        serializer=ApreciationUserSerializer(instance=object, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        publish("ApreciationUser_updated",serializer.data)
+        return Response(serializer.data)
+    
+    def partial_update(self,request,pk):
+        object=ApreciationUser.objects.get(id=pk)
+        serializer=ApreciationUserSerializer(instance=object, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        publish("ApreciationUser_partialUpdate",serializer.data)
+        return Response(serializer.data)
+    
+    def destroy(self,request,pk):
+        object=ApreciationUser.objects.get(id=pk)
+        object.delete()
+        publish("ApreciationUser_destroy",pk)
         return Response(status=status.HTTP_204_NO_CONTENT)

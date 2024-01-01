@@ -4,6 +4,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.timezone import now
 from django.contrib.auth.models import User
+import geocoder
+from decouple import config
 
 
 class Country(models.Model):
@@ -44,6 +46,14 @@ class Restaurant(models.Model):
     def __str__(self):
         return f"{self.restorent_name}, {self.quartier}"
     
+    def save(self, *agrs, **kwargs):
+        g=geocoder.mapbox(self.location,key=config("MAPBOX_KEY"))
+        loc=list(g.latlng)
+        self.latitude=loc[0]
+        self.longitude=loc[1]
+        super(Restaurant, self).save(*agrs, **kwargs)
+
+
 def NumeroGen():
         taille=20
         while True:

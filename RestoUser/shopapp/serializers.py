@@ -13,5 +13,9 @@ class CommandeSerializer(serializers.ModelSerializer):
         model = Commande
         fields = "__all__"
 
+class ApreciationUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ApreciationUser
+        fields = "__all__"
 
 

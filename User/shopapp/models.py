@@ -2,6 +2,7 @@ from django.db import models
 from userapp.models import *
 import random
 import string
+from decouple import config
 #1
 class Country(models.Model):
     id=models.PositiveIntegerField(primary_key=True)
@@ -41,7 +42,7 @@ class Restaurant(models.Model):
     
 
     def __str__(self):
-        return f"{self.restorent_name}, {self.quartier}"
+        return f"{self.restorent_name}"
 
 #5
 class Menu(models.Model):
@@ -61,6 +62,10 @@ class Menu(models.Model):
 
     def __str__(self):
         return f"{self.restaurant.restorent_name}/{self.jour_semaine}"
+    
+    def save(self, *agrs, **kwargs):
+        self.numero=NumeroGenMenu()
+        super(Menu, self).save(*agrs, **kwargs)
 
 #6
 class Ingredient(models.Model):
@@ -84,6 +89,7 @@ class Plat(models.Model):
     def __str__(self):
         return self.nom_plat
 
+
 #8
 class PlatMenu(models.Model):
     id=models.PositiveIntegerField(primary_key=True)
@@ -92,17 +98,25 @@ class PlatMenu(models.Model):
     prix=models.IntegerField(default=1000)
     quantite=models.IntegerField(default=1)
     unite_quantite=models.CharField(max_length=255,default="plat")
-    nb_etoile=models.IntegerField(default=0)
 
     def __str__(self):
         return f"{self.menu.restaurant.restorent_name}({self.menu.jour_semaine}) : {self.plat.nom_plat}"
 
 
-def NumeroGen():
+def NumeroGenMenu():
         taille=20
         while True:
             numero=''.join(random.choises(string.ascii_uppercase, k=taille))
             if Menu.objects.filter(numero=numero).count()==0:
+                break
+        return numero  
+
+
+def NumeroGenCommande():
+        taille=20
+        while True:
+            numero=''.join(random.choises(string.ascii_uppercase, k=taille))
+            if Commande.objects.filter(numero=numero).count()==0:
                 break
         return numero  
 #9
@@ -118,3 +132,24 @@ class Commande(models.Model):
     utilisateur=models.ForeignKey(Simple_User,on_delete=models.CASCADE)
     restaurant=models.ForeignKey(Restaurant,on_delete=models.CASCADE)
     plat=models.ForeignKey(Plat,on_delete=models.CASCADE)
+
+    def save(self, *agrs, **kwargs):
+        self.numero=NumeroGenCommande()
+        super(Commande, self).save(*agrs, **kwargs)
+    def __str__(self):
+        return self.numero
+class ApreciationUser(models.Model):
+    START=[
+        ("0",0),
+        ("1",1),
+        ("2",2),
+        ("3",3),
+        ("4",4),
+        ("5",5),
+    ]
+    nb_etoile=models.IntegerField(choices=START)
+    utilisateur=models.ForeignKey(Simple_User,on_delete=models.CASCADE)
+    plat=models.ForeignKey(PlatMenu,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.nb_etoile)

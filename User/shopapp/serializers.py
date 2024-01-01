@@ -56,3 +56,9 @@ class CommandeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Commande
         fields = "__all__"
+
+#10
+class ApreciationUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ApreciationUser
+        fields = "__all__"

@@ -2,7 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.timezone import now
 from django.contrib.auth.models import User
-
+import geocoder
+from decouple import config
 
 class Health_Problem(models.Model):
 
@@ -42,3 +43,10 @@ class Simple_User(models.Model):
     longitude = models.FloatField(default=0.0)
     latitude = models.FloatField(default=0.0)
     health_problem=models.ManyToManyField(Health_Problem, blank=True)
+
+    def save(self, *agrs, **kwargs):
+        g=geocoder.mapbox(self.location,key=config("MAPBOX_KEY"))
+        loc=list(g.latlng)
+        self.latitude=loc[0]
+        self.longitude=loc[1]
+        super(Simple_User, self).save(*agrs, **kwargs)
