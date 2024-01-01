@@ -20,3 +20,10 @@ admin.site.register(Restaurant)
 admin.site.register(Commande)
 #10
 admin.site.register(ApreciationUser)
+#11
+admin.site.register(RechercherPlat)
+#12
+admin.site.register(RechercherParDescription)
+#13
+admin.site.register(RechercherParImage)
+

@@ -3,6 +3,10 @@ from userapp.models import *
 import random
 import string
 from decouple import config
+from shopapp.naive_bayes import model_prediction
+
+
+
 #1
 class Country(models.Model):
     id=models.PositiveIntegerField(primary_key=True)
@@ -153,3 +157,48 @@ class ApreciationUser(models.Model):
 
     def __str__(self):
         return str(self.nb_etoile)
+    
+class RechercherPlat(models.Model):
+    numero=models.CharField(max_length=20,null=False, blank=False, unique=True)
+    date_recherche=models.DateTimeField(default=now())
+    resultat=models.CharField(max_length=255, blank=True)
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.numero
+    
+    def save(self, *agrs, **kwargs):
+        self.numero=NumeroGenRecherche()
+        user = kwargs.pop('user', None)
+        if user is not None:
+            self.user=user
+        super(RechercherPlat, self).save(*agrs, **kwargs)
+
+def NumeroGenRecherche():
+        taille=20
+        while True:
+            numero=''.join(random.choises(string.ascii_uppercase, k=taille))
+            if Menu.objects.filter(numero=numero).count()==0:
+                break
+        return numero
+
+class RechercherParDescription(RechercherPlat):
+    texte_description=models.TextField(blank=False, null=False)
+
+    def save(self, *agrs, **kwargs):
+        self.resultat=model_prediction(self.texte_description)
+        user = kwargs.pop('user', None)
+        if user is not None:
+            super().save(user=user)
+        super(RechercherParDescription, self).save(*agrs, **kwargs)
+
+class RechercherParImage(RechercherPlat):
+    image=models.ImageField(upload_to="resto_img",blank=False, null=False)
+
+
+    def save(self, *agrs, **kwargs):
+        #self.resultat=tfod_prediction(self.texte_description)
+        user = kwargs.pop('user', None)
+        if user is not None:
+            super().save(user=user)
+        super(RechercherParImage, self).save(*agrs, **kwargs)

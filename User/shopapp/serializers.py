@@ -62,3 +62,13 @@ class ApreciationUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = ApreciationUser
         fields = "__all__"
+#11
+class RechercherParDescriptionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RechercherParDescription
+        fields = "__all__"
+#12
+class RechercherParImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RechercherParImage
+        fields = "__all__"

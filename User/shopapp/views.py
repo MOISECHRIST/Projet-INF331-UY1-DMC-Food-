@@ -11,6 +11,8 @@ from shopapp.serializers import (
     PlatSerializer,
     CommandeSerializer,
     ApreciationUserSerializer,
+    RechercherParDescriptionSerializer,
+    RechercherParImageSerializer
 )
 from .models import *
 from rest_framework.permissions import IsAuthenticated
@@ -452,3 +454,29 @@ class ApreciationUserViewSet(viewsets.ModelViewSet):
         object.delete()
         publish("ApreciationUser_destroy",pk)
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class RechercherParDescriptionViewSet(viewsets.ModelViewSet):
+    queryset = RechercherParDescription.objects.all()
+    serializer_class = RechercherParDescriptionSerializer
+    #permission_classes = (IsAuthenticated,)
+    filterset_fields = ["user","date_recherche","resultat"]
+    search_fields = ["numero"]
+
+    def create(self,request):
+        serializer=RechercherParDescriptionSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save(user=request.user)
+        return Response(serializer.data)
+
+class RechercherParImageViewSet(viewsets.ModelViewSet):
+    queryset = RechercherParImage.objects.all()
+    serializer_class = RechercherParImageSerializer
+    #permission_classes = (IsAuthenticated,)
+    filterset_fields = ["user","date_recherche","resultat"]
+    search_fields = ["numero"]
+
+    def create(self,request):
+        serializer=RechercherParImageSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save(user=request.user)
+        return Response(serializer.data)
