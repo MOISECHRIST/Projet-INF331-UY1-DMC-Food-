@@ -135,12 +135,14 @@ class Commande(models.Model):
     utilisateur=models.ForeignKey(Simple_User,on_delete=models.CASCADE)
     restaurant=models.ForeignKey(Restaurant,on_delete=models.CASCADE)
     plat=models.ForeignKey(Plat,on_delete=models.CASCADE)
+    quantite=models.IntegerField(default=1)
 
     def save(self, *agrs, **kwargs):
         self.numero=NumeroGenCommande()
         super(Commande, self).save(*agrs, **kwargs)
     def __str__(self):
         return self.numero
+    
 class ApreciationUser(models.Model):
     START=[
         ("0",0),
@@ -204,3 +206,7 @@ class RechercherParImage(RechercherPlat):
         if user is not None:
             super().save(user=user)
         super(RechercherParImage, self).save(*agrs, **kwargs)
+
+class PlatHealthPB(models.Model):
+    plat=models.ForeignKey(Plat, on_delete=models.CASCADE)
+    health_pb=models.ForeignKey(Health_Problem, on_delete=models.CASCADE)

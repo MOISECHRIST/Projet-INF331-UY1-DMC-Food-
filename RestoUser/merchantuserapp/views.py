@@ -22,7 +22,7 @@ class MeViewSet(viewsets.ViewSet):
     #permission_classes = (IsAuthenticated,)
     
     def list(self,request):
-        user=User.object.get(username=request.user)
+        user=User.objects.get(username=request.user)
         user_data=UserSerializer(user).data
         return Response(user_data)
 
@@ -220,7 +220,7 @@ class MenuViewSet(viewsets.ModelViewSet):
     #permission_classes = (IsAuthenticated,)
     serializer_class = MenuSerializer
     filterset_fields = ["restaurant", "jour_semaine"]
-    search_fields = ["restaurant"]
+    search_fields = ["numero"]
 
     def list(self, request):
         objects=Menu.objects.all()

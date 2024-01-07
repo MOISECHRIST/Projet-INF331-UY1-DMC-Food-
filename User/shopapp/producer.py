@@ -6,7 +6,7 @@ import json
 
 def publish(method,body):
     #params=pika.URLParameters(config("RABBITMQ_KEY"))
-    params=pika.ConnectionParameters(host="localhost")
+    params=pika.ConnectionParameters(host=config('RABBITMQ_HOST'))
     connection=pika.BlockingConnection(params)
 
 

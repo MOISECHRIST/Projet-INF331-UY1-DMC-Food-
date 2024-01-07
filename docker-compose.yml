@@ -11,7 +11,7 @@ services :
       - .:/app
     depends_on:
       - dbresto
-      - rabbitmq
+      - rmq
 
   user:
     build:
@@ -24,33 +24,40 @@ services :
       - .:/app
     depends_on:
       - dbuser
-      - rabbitmq
+      - rmq
 
   queueresto:
     build:
       context: ./RestoUser
       dockerfile: Dockerfile
-    command: 'python consumer.py'
+    command: 'python RestoUser/consumer.py'
     depends_on:
       - dbresto
-      - rabbitmq
+      - rmq
 
   queueuser:
     build:
       context: User
       dockerfile: Dockerfile
-    command: 'python consumer.py'
+    command: 'python User/consumer.py'
     depends_on:
       - dbuser
-      - rabbitmq
+      - rmq
 
 
-  rabbitmq:
-    image: rabbitmq:latest
+  rmq:
+    #image: 'rabbitmq:3.6-management-alpine'
+    image: 'rabbitmq:3-management'
     restart: always
+    environment:
+      #AMQP_URL: 'amqp://rabbitmq?connexion_attempts=5&retry_delay=5'
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
     ports:
-      - "5673:5672"
+      - "5672:5672"
       - "15673:15672"
+    networks:
+      - my_network
 
   dbresto:
     image: mysql:latest
@@ -77,3 +84,5 @@ services :
       - ./User/.dbdata:/var/lib/mysql
     ports:
       - 33067:3306
+networks:
+  network: {}

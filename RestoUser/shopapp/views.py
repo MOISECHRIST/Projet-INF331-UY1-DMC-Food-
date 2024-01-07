@@ -13,8 +13,8 @@ class SimpleUserViewSet(viewsets.ModelViewSet):
     queryset = SimpleUser.objects.all()
     serializer_class = SimpleUserSerializer
     #permission_classes = (IsAuthenticated,)
-    filterset_fields = ["email", "phone_number"]
-    search_fields = ["email"]
+    filterset_fields = ["phone_number"]
+    search_fields = ["phone_number"]
 
     def list(self, request):
         objects=SimpleUser.objects.all()
@@ -56,7 +56,7 @@ class CommandeViewSet(viewsets.ModelViewSet):
     serializer_class = CommandeSerializer
     #permission_classes = (IsAuthenticated,)
     filterset_fields = ["status","date_commande","utilisateur","restaurant","plat"]
-    search_fields = ["status"]
+    search_fields = ["numero"]
 
     def list(self, request):
         objects=Commande.objects.all()

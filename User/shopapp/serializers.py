@@ -72,3 +72,9 @@ class RechercherParImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = RechercherParImage
         fields = "__all__"
+
+
+class PlatHealthPBSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PlatHealthPB
+        fields = "__all__"

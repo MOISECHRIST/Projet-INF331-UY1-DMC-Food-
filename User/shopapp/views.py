@@ -12,7 +12,8 @@ from shopapp.serializers import (
     CommandeSerializer,
     ApreciationUserSerializer,
     RechercherParDescriptionSerializer,
-    RechercherParImageSerializer
+    RechercherParImageSerializer,
+    PlatHealthPBSerializer
 )
 from .models import *
 from rest_framework.permissions import IsAuthenticated
@@ -481,3 +482,11 @@ class RechercherParImageViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         serializer.save(user=request.user,)
         return Response(serializer.data)
+    
+
+class PlatHealthPBViewSet(viewsets.ModelViewSet):
+    queryset = PlatHealthPB.objects.all()
+    serializer_class = PlatHealthPBSerializer
+    #permission_classes = (IsAuthenticated,)
+    filterset_fields = ["plat"]
+    search_fields = ["plat"]

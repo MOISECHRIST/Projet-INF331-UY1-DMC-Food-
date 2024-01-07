@@ -21,6 +21,7 @@ class Commande(models.Model):
     utilisateur=models.ForeignKey(SimpleUser,on_delete=models.CASCADE)
     restaurant=models.ForeignKey(Restaurant,on_delete=models.CASCADE)
     plat=models.ForeignKey(Plat,on_delete=models.CASCADE)
+    quantite=models.IntegerField(default=1)
 
 class ApreciationUser(models.Model):
     START=[

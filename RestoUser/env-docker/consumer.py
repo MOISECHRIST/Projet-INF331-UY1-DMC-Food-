@@ -77,7 +77,7 @@ def query_to_table(dbconn, methode ,data,fields):
 
 
 def callback(ch, methode, properties, body):
-    print("Received in restoshop...")
+    print("[x] Received in restoshop...")
     data=json.loads(body)
     print(data)
     methode = properties.content_type
