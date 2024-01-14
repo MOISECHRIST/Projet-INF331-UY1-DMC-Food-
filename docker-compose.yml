@@ -1,0 +1,88 @@
+version: '3.8'
+services : 
+  resto:
+    build:
+      context: ./RestoUser
+      dockerfile: Dockerfile
+    command: 'python RestoUser/manage.py runserver 0.0.0.0:8000'
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/app
+    depends_on:
+      - dbresto
+      - rmq
+
+  user:
+    build:
+      context: ./User
+      dockerfile: Dockerfile
+    command: 'python User/manage.py runserver 0.0.0.0:8000'
+    ports:
+      - 8001:8000
+    volumes:
+      - .:/app
+    depends_on:
+      - dbuser
+      - rmq
+
+  queueresto:
+    build:
+      context: ./RestoUser
+      dockerfile: Dockerfile
+    command: 'python RestoUser/consumer.py'
+    depends_on:
+      - dbresto
+      - rmq
+
+  queueuser:
+    build:
+      context: User
+      dockerfile: Dockerfile
+    command: 'python User/consumer.py'
+    depends_on:
+      - dbuser
+      - rmq
+
+
+  rmq:
+    #image: 'rabbitmq:3.6-management-alpine'
+    image: 'rabbitmq:3-management'
+    restart: always
+    environment:
+      #AMQP_URL: 'amqp://rabbitmq?connexion_attempts=5&retry_delay=5'
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
+    ports:
+      - "5672:5672"
+      - "15673:15672"
+    networks:
+      - my_network
+
+  dbresto:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${DB_NAME_RESTO}
+      #MYSQL_USER: ${DB_USER}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      
+    volumes:
+      - ./RestoUser/.dbdata:/var/lib/mysql
+    ports:
+      - 33066:3306
+
+  dbuser:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${DB_NAME_USER}
+      #MYSQL_USER: ${DB_USER}
+      MYSQL_ROOT_PASSWORD : ${DB_PASSWORD}
+      
+    volumes:
+      - ./User/.dbdata:/var/lib/mysql
+    ports:
+      - 33067:3306
+networks:
+  network: {}
