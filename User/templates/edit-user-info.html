@@ -1,0 +1,84 @@
+{% extends "base-form-page.html" %}
+<!--Fetch-->
+{% block form %}
+
+                  <div class="pt-4 pb-2">
+                    <h5 class="card-title text-center pb-0 fs-4">Edit Profile</h5>
+                    <p class="text-center small">Enter your personal details to create account</p>
+                  </div>
+
+                  <form class="row g-3" method="POST">
+                    {% csrf_token %}
+                    <div class="col-md-6">
+                      <label for="yourFirstName" class="form-label">First Name</label>
+                      <input type="text" name="firstname" class="form-control" id="yourFirstName">
+                      <div class="invalid-feedback">Please, enter your first name!</div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label for="yourLastName" class="form-label">Last Name</label>
+                      <input type="text" name="lastname" class="form-control" id="yourLastName">
+                      <div class="invalid-feedback">Please, enter your last name!</div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="inputEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="inputEmail">
+                    </div>
+
+                    <div class="col-md-6">
+                      <label for="yourPhone" class="form-label">Phone Number</label>
+                      <input type="text" name="phone" class="form-control" id="yourPhone" required>
+                      <div class="invalid-feedback">Please, enter your phone!</div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label for="yourDateofBird" class="form-label">Date Of Bird</label>
+                      <input type="date" name="dateofbird" class="form-control" id="yourDateofBird" required>
+                      <div class="invalid-feedback">Please, enter your date of bird!</div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label for="yourQuarter" class="form-label">Quarter</label>
+                      <select name="Quarter" class="form-control" id="yourQuarter" required>
+                      {% for quarter in quarters %}
+                        <option>{{quarter}}</option>
+                      {% endfor %}
+                      </select>
+                      <div class="invalid-feedback">Please, enter your quarter!</div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label for="yourGender" class="form-label">Gender</label>
+                      <select name="gender" class="form-control" id="yourGender" required>
+                        <option>None</option>
+                        <option>Female</option>
+                        <option>Male</option>
+                      </select>
+                      <div class="invalid-feedback">Please, enter your gender!</div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label for="yourHeight" class="form-label">Height</label>
+                      <input type="number" name="height" class="form-control" id="yourHeight">
+                      <div class="invalid-feedback">Please, enter your heigth!</div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label for="yourWeigth" class="form-label">Weigth</label>
+                      <input type="number" name="weight" class="form-control" id="yourWeight">
+                      <div class="invalid-feedback">Please, enter your Weigth!</div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label for="yourImage" class="form-label">Image</label>
+                      <input type="file" name="image" class="form-control" id="yourImage">
+                      <div class="invalid-feedback">Please, enter your Image!</div>
+                    </div>
+
+                    <div class="text-center mt-5">
+                      <button type="submit" class="btn btn-brand">Save Changes</button>
+                    </div>
+                  </form>
+
+{% endblock %}  
