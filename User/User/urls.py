@@ -21,15 +21,28 @@ from userapp.urls import router as userapp_router
 from shopapp.urls import router as shopapp_router
 from django.conf.urls.static import static
 from . import settings
+from .views import *
 
 router = routers.DefaultRouter()
 router.registry.extend(userapp_router.registry)
 router_shop = routers.DefaultRouter()
 router_shop.registry.extend(shopapp_router.registry)
 urlpatterns = [
+    #Frontend URLs
+    path('', index, name="home"),
+    path("logout/", logout_user,name='logout'),
+    path("login/", login_user,name='login'),
+    path("signup/", singup_view,name='signup'),
+    path("edit_user/", edit_user_view,name='edit_user'),
+    path("research/", research_view,name='research'),
+    path("orders/", orders_view,name='orders'),
+    
+    #Admin URls
     path("admin/", admin.site.urls),
-    path("", include(router.urls)),
-    path("shop/", include(router_shop.urls)),
-    path("", include("dj_rest_auth.urls")),
-    path("registration/", include("dj_rest_auth.registration.urls")),
+
+    #API URLs
+    path("api/", include(router.urls)),
+    path("api/shop/", include(router_shop.urls)),
+    path("api/", include("dj_rest_auth.urls")),
+    path("api/registration/", include("dj_rest_auth.registration.urls")),
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

@@ -97,6 +97,7 @@ class Plat(models.Model):
     image_plat=models.ImageField(upload_to="plat_img", blank=True, null=True)
     recette=models.TextField(blank=True,null=True)
     ingredients=models.ManyToManyField(Ingredient, null=True)
+    
 
     def __str__(self):
         return self.nom_plat

@@ -88,6 +88,7 @@ class Plat(models.Model):
     image_plat=models.ImageField(upload_to="plat_img", blank=True, null=True)
     recette=models.TextField(blank=True,null=True)
     ingredients=models.ManyToManyField(Ingredient, null=True)
+    
 
     def __str__(self):
         return self.nom_plat
@@ -132,6 +133,7 @@ class Commande(models.Model):
     numero=models.CharField(max_length=20, blank=False)
     status=models.CharField(choices=STATUS, max_length=10, blank=False)
     date_commande=models.DateTimeField(default=now())
+    date_delai=models.DateTimeField(default=now())
     utilisateur=models.ForeignKey(Simple_User,on_delete=models.CASCADE)
     restaurant=models.ForeignKey(Restaurant,on_delete=models.CASCADE)
     plat=models.ForeignKey(Plat,on_delete=models.CASCADE)
