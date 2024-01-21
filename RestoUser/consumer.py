@@ -28,7 +28,7 @@ def query_to_table(dbconn, methode ,data,fields):
     
     if action.upper()=="CREATED":
         values=''
-        for i in range(len(data.keys())): 
+        for i in range(len(fields)): 
             if i==0:
                 values='%s'
             else:
@@ -38,7 +38,8 @@ def query_to_table(dbconn, methode ,data,fields):
         print(sql)
 
         list_data=[]
-        for key in data.keys():
+        for key in fields:
+            key=key.replace('_id','')
             list_data+=[data[key]]
         
         print(list(list_data))
@@ -96,7 +97,7 @@ def callback(ch, methode, properties, body):
         fields=["id","numero","jour_semaine","restaurant_id"]
         query_to_table(dbconn,methode,data,fields)
     else:
-        fields=["id","numero","status","date_commande","plat_id","restaurant_id"]
+        fields=["id","status","date_commande","plat_id","restaurant_id","utilisateur_id","numero","quantite","date_delai"]
         query_to_table(dbconn,methode,data, fields)
 
 channel.basic_consume(queue='usershop',on_message_callback=callback)

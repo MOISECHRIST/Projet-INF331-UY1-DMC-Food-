@@ -17,9 +17,9 @@ from nltk.stem import WordNetLemmatizer
 from nltk.stem import PorterStemmer
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
-nltk.download("punkt")
-nltk.download('wordnet')
-nltk.download('stopwords')
+#nltk.download("punkt")
+#nltk.download('wordnet')
+#nltk.download('stopwords')
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent

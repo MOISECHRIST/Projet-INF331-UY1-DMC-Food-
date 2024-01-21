@@ -11,74 +11,72 @@
                     {% csrf_token %}
                     <div class="col-md-6">
                       <label for="yourFirstName" class="form-label">First Name</label>
-                      <input type="text" name="firstname" class="form-control" id="yourFirstName">
+                      <input type="text" name="firstname" class="form-control" id="yourFirstName" value="{{user.first_name}}">
                       <div class="invalid-feedback">Please, enter your first name!</div>
                     </div>
 
                     <div class="col-md-6">
                       <label for="yourLastName" class="form-label">Last Name</label>
-                      <input type="text" name="lastname" class="form-control" id="yourLastName">
+                      <input type="text" name="lastname" class="form-control" id="yourLastName" value="{{user.last_name}}">
                       <div class="invalid-feedback">Please, enter your last name!</div>
                     </div>
 
                     <div class="col-md-6">
                         <label for="inputEmail" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="inputEmail">
+                        <input type="email" name="email" class="form-control" id="inputEmail"value="{{user.email}}">
                     </div>
 
                     <div class="col-md-6">
                       <label for="yourPhone" class="form-label">Phone Number</label>
-                      <input type="text" name="phone" class="form-control" id="yourPhone" required>
+                      <input type="text" name="phone" class="form-control" id="yourPhone" required value="{{profil.phone_number}}">
                       <div class="invalid-feedback">Please, enter your phone!</div>
                     </div>
 
                     <div class="col-md-6">
                       <label for="yourDateofBird" class="form-label">Date Of Bird</label>
-                      <input type="date" name="dateofbird" class="form-control" id="yourDateofBird" required>
+                      <input type="date" name="dateofbird" class="form-control" id="yourDateofBird" required >
                       <div class="invalid-feedback">Please, enter your date of bird!</div>
-                    </div>
-
-                    <div class="col-md-6">
-                      <label for="yourQuarter" class="form-label">Quarter</label>
-                      <select name="Quarter" class="form-control" id="yourQuarter" required>
-                      {% for quarter in quarters %}
-                        <option>{{quarter}}</option>
-                      {% endfor %}
-                      </select>
-                      <div class="invalid-feedback">Please, enter your quarter!</div>
                     </div>
 
                     <div class="col-md-6">
                       <label for="yourGender" class="form-label">Gender</label>
                       <select name="gender" class="form-control" id="yourGender" required>
-                        <option>None</option>
-                        <option>Female</option>
-                        <option>Male</option>
+                        <option value="-"  >None</option>
+                        <option value="f"  >Female</option>
+                        <option value="m"  >Male</option>
                       </select>
                       <div class="invalid-feedback">Please, enter your gender!</div>
                     </div>
 
                     <div class="col-md-6">
                       <label for="yourHeight" class="form-label">Height</label>
-                      <input type="number" name="height" class="form-control" id="yourHeight">
+                      <input type="text" name="height" class="form-control" id="yourHeight">
                       <div class="invalid-feedback">Please, enter your heigth!</div>
                     </div>
 
                     <div class="col-md-6">
                       <label for="yourWeigth" class="form-label">Weigth</label>
-                      <input type="number" name="weight" class="form-control" id="yourWeight">
+                      <input type="text" name="weight" class="form-control" id="yourWeight">
                       <div class="invalid-feedback">Please, enter your Weigth!</div>
                     </div>
 
                     <div class="col-md-6">
                       <label for="yourImage" class="form-label">Image</label>
-                      <input type="file" name="image" class="form-control" id="yourImage">
+                      <input type="file" name="image" class="form-control" id="yourImage" value="{{profil.image}}">
                       <div class="invalid-feedback">Please, enter your Image!</div>
                     </div>
 
+                    <div class="col-md-6">
+                      <label for="yourHealthPBs" class="form-label">Health Problems</label>
+                      <select name="healthPBs" class="form-control" id="yourHealthPBs" multiple>
+                      {% for hpb in hpbs %}
+                        <option>{{hpb}}</option>
+                      {% endfor %}
+                      </select>
+                    </div>
+
                     <div class="text-center mt-5">
-                      <button type="submit" class="btn btn-brand">Save Changes</button>
+                      <button type="submit" class="btn btn-brand" onclick="editData({{profil.id}}, {{user.id}})">Save Changes</button>
                     </div>
                   </form>
-
 {% endblock %}  

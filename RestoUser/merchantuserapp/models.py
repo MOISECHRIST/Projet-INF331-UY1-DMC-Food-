@@ -44,14 +44,7 @@ class Restaurant(models.Model):
     livraison_service=models.BooleanField(default=False)
 
     def __str__(self):
-        return f"{self.restorent_name}, {self.quartier}"
-    
-    def save(self, *agrs, **kwargs):
-        g=geocoder.mapbox(self.location,key=config("MAPBOX_KEY"))
-        loc=list(g.latlng)
-        self.latitude=loc[0]
-        self.longitude=loc[1]
-        super(Restaurant, self).save(*agrs, **kwargs)
+        return f"{self.restorent_name}, {self.quartier}"      
 
 
 def NumeroGen():

@@ -7,7 +7,7 @@
                     <p class="text-center small">Enter your personal details to create account</p>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate method="POST">
+                  <form class="row g-3 needs-validation" novalidate method="POST" id="signupForm">
                     {% csrf_token %}
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">Username</label>
@@ -26,13 +26,13 @@
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Password</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
+                      <input type="password" name="password1" class="form-control" id="yourPassword" required>
                       <div class="invalid-feedback">Please enter your password!</div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Confirm Password</label>
-                      <input type="password" name="password" class="form-control" id="confirmPassword" required>
+                      <input type="password" name="password2" class="form-control" id="confirmPassword" required>
                       <div class="invalid-feedback">Please enter your password!</div>
                     </div>
 

@@ -24,19 +24,21 @@
                   <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Reseach With Food Description</button>
                 </li>
             </ul>
+            
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0"><br><br><br>
                     <form id="research_by_name" method="post">
                         {% csrf_token %}
                         <input type="text" name="nom_plat" class="form-control" id="nom_plat" required><br>
-                        <button type='button' class="btn btn-brand">search</button>
+                        <a href={% url 'research_by_name' %}><button type='button' class="btn btn-brand">search</button></a>
                     </form>
                 </div>
+
                 <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0"><br><br>
                     <form id="research_by_description" method="post">
                         {% csrf_token %}
                         <textarea name="description_plat" id="description_plat" cols="me-30" rows="3" placeholder="entrer la description du plat recherché" style="width:1300px; paddin-left:50px"></textarea><br><br>
-                        <button type='button' class="btn btn-brand" >search</button>
+                        <a href={% url 'research_by_desc' %}><button type='button' class="btn btn-brand" >search</button></a>
                     </form>
                 </div>
                 

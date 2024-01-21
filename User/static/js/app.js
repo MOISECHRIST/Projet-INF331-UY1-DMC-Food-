@@ -117,12 +117,14 @@ let getData = localStorage.getItem('cmdElt') ? JSON.parse(localStorage.getItem('
 let isEdit = false, editId
 showInfo()
 
-newUserBtn.addEventListener('click', ()=> {
-  submitBtn.innerText = 'Submit',
-  modalTitle.innerText = "Fill the Form"
-  isEdit = false
-  form.reset()
-})
+if (newUserBtn) {
+  newUserBtn.addEventListener('click', ()=> {
+    submitBtn.innerText = 'Submit',
+    modalTitle.innerText = "Fill the Form"
+    isEdit = false
+    form.reset()
+  })
+}
 
 
 
@@ -181,40 +183,41 @@ function deleteInfo(index){
     }
 }
 
-
-form.addEventListener('submit', (e)=> {
-  e.preventDefault()
-
-  if (nomCmd && resto && date && cdstatus) {
-    const information = {
-      cmdName: nomCmd.value,
-      cmdResto: resto.value,
-      startDate: date.value,
-      cmdStatus: cdstatus.value 
+if (form) {
+  form.addEventListener('submit', (e)=> {
+    e.preventDefault()
+  
+    if (nomCmd && resto && date && cdstatus) {
+      const information = {
+        cmdName: nomCmd.value,
+        cmdResto: resto.value,
+        startDate: date.value,
+        cmdStatus: cdstatus.value 
+      }
+  
+      if(!isEdit){
+        getData.push(information)
+      }
+      else{
+        isEdit = false
+        getData[editId] = information
+      }
+      
+    } else {
+      console.error("One or more form elements are not found in the DOM.");
     }
-
-    if(!isEdit){
-      getData.push(information)
-    }
-    else{
-      isEdit = false
-      getData[editId] = information
-    }
-    
-  } else {
-    console.error("One or more form elements are not found in the DOM.");
-  }
-
-  localStorage.setItem('cmdElt', JSON.stringify(getData))
-
-  submitBtn.innerText = "Submit"
-  modalTitle.innerHTML = "Fill The Form"
-
-  showInfo()
-
-  form.reset()
-
-
-  // modal.style.display = "none"
-  // document.querySelector(".modal-backdrop").remove()
-})
+  
+    localStorage.setItem('cmdElt', JSON.stringify(getData))
+  
+    submitBtn.innerText = "Submit"
+    modalTitle.innerHTML = "Fill The Form"
+  
+    showInfo()
+  
+    form.reset()
+  
+  
+    // modal.style.display = "none"
+    // document.querySelector(".modal-backdrop").remove()
+  })
+}

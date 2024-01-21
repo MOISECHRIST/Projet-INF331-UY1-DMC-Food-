@@ -36,6 +36,12 @@ urlpatterns = [
     path("edit_user/", edit_user_view,name='edit_user'),
     path("research/", research_view,name='research'),
     path("orders/", orders_view,name='orders'),
+    path("result_notfound/", result_notfound,name='result_notfound'),
+    path("result_resarch/<int:pk>", result_resarch,name='result_resarch'),
+    path("create_order/<int:pk>", create_order,name='create_order'),
+    path("research_by_name/", research_by_name_view,name='research_by_name'),
+    path("research_by_desc/", research_by_desc_view,name='research_by_desc'),
+    path("orders/<str:numero>", modif_order,name='modif_order'),
     
     #Admin URls
     path("admin/", admin.site.urls),
