@@ -22,7 +22,7 @@
         </div>
 
 <br/>
-<img src="{{ plat.image.url }}" alt="photo de {{ plat.nom_plat }}" style="height: 250px; width: 250px; border-radius: 100px;">
+<img src="{{ plat.image.url }}" alt="photo de {{ plat.nom_plat }}" style="height: 250px; width: 250px; border-radius: 70px;">
 <br/>
 <h3>Description</h3>
 <p>{{ plat.description }}</p><br/>
@@ -37,7 +37,7 @@
     {% endfor %}
 </ul>
 
-<a href="{% url 'create_order' plat.pk%}"><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cmdForm"><i class="bi bi-calendar-day-fill"></i></button></a>
+<a href="{% url 'create_order' plat.pk%}"><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cmdForm"><i class="bi bi-calendar-day-fill"> Create new Order</i></button></a>
  <!-- Primary Color Bordered Table -->
  <table class="table table-bordered border-primary mt-4">
     <thead>
@@ -49,7 +49,7 @@
         </tr>
     </thead>
     <tbody id="data">
-        {% for order in orders %}
+        {% for menu in menus %}
         <tr>
             <th scope="row">{{ menu.restaurant }}</th>
             <td>{{ menu.menu.jour_semaine }}</td>

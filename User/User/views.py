@@ -96,7 +96,7 @@ def edit_user_view(request):
             gender=gender,
             account=user)
             serializer=Simple_UserSerializer(profil)
-            publish("SimpleUser_updated",serializer.data)
+            publish("SimpleUser_created",serializer.data)
         return redirect("home")
     return render(request, "edit-user-info.html", context={'profil':profil,'hpbs':hpbs})
 
@@ -106,7 +106,7 @@ def research_view(request):
 def result_resarch(request, pk):
     plat=Plat.objects.get(pk=pk)
     menu=PlatMenu.objects.filter(plat=plat)
-    return render(request,"result_research.html",{'plat':plat, 'menu':menu})
+    return render(request,"result_research.html",{'plat':plat, 'menus':menu})
 
 def research_by_name_view(request):
     if request.method=="POST":
@@ -154,25 +154,26 @@ def modif_order(request, numero):
     return render(request, "edit-cmd.html", context={"order":order})
 
 def create_order(request, pk):
-    resto=Restaurant.object.
+    plat=Plat.objects.get(pk=pk)
+    menu=PlatMenu.objects.filter(plat=plat)
     if request.method=="POST":
         user=request.user
         profil=Simple_User.objects.get(account=user)
         plat=Plat.objects.get(pk=pk)
-        date_delai=request.POST.get("date_delai")
+        restaurant=request.POST.get("restaurant")
         date_delai=request.POST.get("date_delai")
         quantite=request.POST.get("quantite")   
         order=Commande.objects.create(
-          date_delai=date_delai,
-        quantite=quantite,
+            date_delai=date_delai,
+            quantite=quantite,
             plat=plat,
             utilisateur=profil,
-
+            restaurant=restaurant
         )    
         order.date_delai=date_delai
         order.quantite=quantite
         order.save()
         serializer=CommandeSerializer(order)
-        publish("Commande_updated",serializer.data)
+        publish("Commande_created",serializer.data)
         return redirect("orders")
-    return render(request,"create-cmd.html", context={"order":order})
+    return render(request,"create-cmd.html", context={"menus":menu})
