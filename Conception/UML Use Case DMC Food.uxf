@@ -17,7 +17,7 @@
     <coordinates>
       <x>200</x>
       <y>40</y>
-      <w>1260</w>
+      <w>1310</w>
       <h>840</h>
     </coordinates>
     <panel_attributes>DMC Food
@@ -113,7 +113,7 @@ Si abscence de compte
       <h>90</h>
     </coordinates>
     <panel_attributes>lt=.&gt;
-&lt;&lt;includes&gt;&gt;</panel_attributes>
+&lt;&lt;extends&gt;&gt;</panel_attributes>
     <additional_attributes>320.0;70.0;10.0;10.0</additional_attributes>
   </element>
   <element>
@@ -234,13 +234,12 @@ du nom du plat</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1060</x>
-      <y>470</y>
+      <x>1150</x>
+      <y>490</y>
       <w>240</w>
       <h>80</h>
     </coordinates>
-    <panel_attributes>Visualiser les restaurents
-pour un plat</panel_attributes>
+    <panel_attributes>Rechercer les restaurents</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -283,8 +282,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>1310</x>
-      <y>170</y>
+      <x>1330</x>
+      <y>160</y>
       <w>130</w>
       <h>50</h>
     </coordinates>
@@ -295,7 +294,7 @@ service livraison</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1150</x>
+      <x>1230</x>
       <y>260</y>
       <w>200</w>
       <h>80</h>
@@ -307,32 +306,32 @@ d'un restaurant</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1230</x>
+      <x>1320</x>
       <y>330</y>
       <w>110</w>
-      <h>160</h>
+      <h>180</h>
     </coordinates>
     <panel_attributes>lt=.&gt;
 &lt;&lt;extends&gt;&gt;</panel_attributes>
-    <additional_attributes>30.0;10.0;10.0;140.0</additional_attributes>
+    <additional_attributes>20.0;10.0;10.0;160.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>1190</x>
       <y>150</y>
-      <w>110</w>
+      <w>150</w>
       <h>130</h>
     </coordinates>
     <panel_attributes>lt=.&gt;
 &lt;&lt;extends&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;10.0;30.0;110.0</additional_attributes>
+    <additional_attributes>10.0;10.0;110.0;110.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1200</x>
-      <y>180</y>
+      <x>1220</x>
+      <y>170</y>
       <w>130</w>
       <h>40</h>
     </coordinates>
@@ -342,8 +341,8 @@ d'un restaurant</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>600</x>
-      <y>330</y>
+      <x>530</x>
+      <y>300</y>
       <w>190</w>
       <h>80</h>
     </coordinates>
@@ -354,25 +353,25 @@ des commandes</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>740</x>
+      <x>670</x>
       <y>220</y>
-      <w>220</w>
-      <h>140</h>
+      <w>290</w>
+      <h>110</h>
     </coordinates>
     <panel_attributes>lt=.&gt;
 &lt;&lt;includes&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;120.0;200.0;10.0</additional_attributes>
+    <additional_attributes>10.0;90.0;270.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>80</x>
-      <y>350</y>
-      <w>540</w>
-      <h>150</h>
+      <y>320</y>
+      <w>470</w>
+      <h>180</h>
     </coordinates>
     <panel_attributes/>
-    <additional_attributes>10.0;130.0;520.0;10.0</additional_attributes>
+    <additional_attributes>10.0;160.0;450.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLUseCase</id>
@@ -390,24 +389,13 @@ sur le plat
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>90</x>
-      <y>470</y>
-      <w>470</w>
-      <h>310</h>
-    </coordinates>
-    <panel_attributes/>
-    <additional_attributes>10.0;10.0;450.0;288.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
       <x>80</x>
       <y>470</y>
-      <w>1000</w>
-      <h>60</h>
+      <w>1090</w>
+      <h>80</h>
     </coordinates>
     <panel_attributes/>
-    <additional_attributes>10.0;10.0;980.0;40.0</additional_attributes>
+    <additional_attributes>10.0;10.0;1070.0;60.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -424,60 +412,13 @@ sur le plat
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>980</x>
-      <y>510</y>
-      <w>140</w>
-      <h>100</h>
-    </coordinates>
-    <panel_attributes>lt=.&gt;
-&lt;&lt;includes&gt;&gt;</panel_attributes>
-    <additional_attributes>80.0;10.0;10.0;80.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
       <x>80</x>
-      <y>210</y>
-      <w>870</w>
-      <h>290</h>
+      <y>200</y>
+      <w>860</w>
+      <h>300</h>
     </coordinates>
     <panel_attributes/>
-    <additional_attributes>10.0;270.0;850.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLUseCase</id>
-    <coordinates>
-      <x>460</x>
-      <y>230</y>
-      <w>190</w>
-      <h>80</h>
-    </coordinates>
-    <panel_attributes>Visualiser historique
-des commandes</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>80</x>
-      <y>250</y>
-      <w>400</w>
-      <h>250</h>
-    </coordinates>
-    <panel_attributes/>
-    <additional_attributes>10.0;230.0;380.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>620</x>
-      <y>190</y>
-      <w>320</w>
-      <h>70</h>
-    </coordinates>
-    <panel_attributes>lt=.&gt;
-&lt;&lt;includes&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;50.0;300.0;10.0</additional_attributes>
+    <additional_attributes>10.0;280.0;400.0;60.0;840.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLUseCase</id>
@@ -512,5 +453,29 @@ des commandes</panel_attributes>
     </coordinates>
     <panel_attributes/>
     <additional_attributes>10.0;60.0;630.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>980</x>
+      <y>310</y>
+      <w>290</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>270.0;10.0;10.0;280.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1070</x>
+      <y>200</y>
+      <w>200</w>
+      <h>310</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>180.0;290.0;10.0;10.0</additional_attributes>
   </element>
 </diagram>

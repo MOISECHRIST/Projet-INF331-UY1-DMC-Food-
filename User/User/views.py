@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth import logout, login, authenticate
 from django.shortcuts import render,get_object_or_404,redirect
-from shopapp.models import Commande, Plat, Ingredient, PlatMenu, PlatHealthPB, RechercherParDescription,Restaurant
+from shopapp.models import Menu, Commande, Plat, Ingredient, PlatMenu, PlatHealthPB, RechercherParDescription,Restaurant
 from userapp.models import Simple_User, Health_Problem
 from django.contrib.auth.models import User
 from userapp.serializers import Simple_UserSerializer
@@ -108,11 +108,15 @@ def result_resarch(request, pk):
     menu=PlatMenu.objects.filter(plat=plat)
     return render(request,"result_research.html",{'plat':plat, 'menus':menu})
 
+def result_all_research(request, plat):
+    plats=Plat.objects.filter(nom_plat__icontain=plat)
+    return render(request, "plat_trouve.html", {"plats":plats})
+
 def research_by_name_view(request):
     if request.method=="POST":
         try:
-            plat=get_object_or_404(Plat, nom_plat=request.POST.get("nom_plat"))
-            return redirect(reverse("result_resarch",kwargs={"pk": plat.pk}))
+            plats=Plat.objects.filter(nom_plat__icontain=request.POST.get("nom_plat"))
+            return redirect(reverse("result_all_food",kwargs={"plat": request.POST.get("nom_plat")}))
         except:
             return redirect("result_notfound")
         
@@ -124,8 +128,8 @@ def research_by_desc_view(request):
             description=request.POST.get("description_plat")
             name=model_prediction(description)
             RechercherParDescription.objects.create(user=request.user,resultat=name)
-            plat=get_object_or_404(Plat, nom_plat=name)
-            return redirect(reverse("result_resarch",kwargs={"pk": plat.pk}))
+            plats=Plat.objects.filter(nom_plat__icontain=name)
+            return redirect(reverse("result_all_food",kwargs={"plat": name}))
         except:
             return redirect("result_notfound")
     return render(request, "research.html")
@@ -177,3 +181,16 @@ def create_order(request, pk):
         publish("Commande_created",serializer.data)
         return redirect("orders")
     return render(request,"create-cmd.html", context={"menus":menu})
+
+def view_resto(request, pk):
+    resto=Restaurant.objects.get(pk=pk)
+    menus=PlatMenu.objects.filter(menu__in=Menu.objects.filter(restaurant=resto))
+    return render(request, "resto_page.html", {"resto":resto, "menus":menus})
+
+def research_resto_view(request):
+    if request.method=="POST":
+        restaurant=request.POST.get("restaurant")
+        restos=Restaurant.objects.filter(restorent_name__icontains=restaurant)
+        return render(request, "result_research_resto.html", {"restos":restos})
+    return render(request, "research_resto.html")
+

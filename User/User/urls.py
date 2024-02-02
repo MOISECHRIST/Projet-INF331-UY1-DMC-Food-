@@ -42,6 +42,10 @@ urlpatterns = [
     path("research_by_name/", research_by_name_view,name='research_by_name'),
     path("research_by_desc/", research_by_desc_view,name='research_by_desc'),
     path("orders/<str:numero>", modif_order,name='modif_order'),
+    path("results/<str:plat>", result_all_research,name='result_all_food'),
+    path("view_resto/<int:pk>", view_resto,name='view_resto'),
+    path("research_resto_view/", research_resto_view,name='research_resto'),
+    
     
     #Admin URls
     path("admin/", admin.site.urls),
