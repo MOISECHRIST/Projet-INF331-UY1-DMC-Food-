@@ -30,7 +30,7 @@
                     <form id="research_by_name" method="post">
                         {% csrf_token %}
                         <input type="text" name="nom_plat" class="form-control" id="nom_plat" required><br>
-                        <a href={% url 'research_by_name' %}><button type='button' class="btn btn-brand">search</button></a>
+                        <input type='submit' class="btn btn-brand" value="search">
                     </form>
                 </div>
 
@@ -38,7 +38,7 @@
                     <form id="research_by_description" method="post">
                         {% csrf_token %}
                         <textarea name="description_plat" id="description_plat" cols="me-30" rows="3" placeholder="entrer la description du plat recherché" style="width:1300px; paddin-left:50px"></textarea><br><br>
-                        <a href={% url 'research_by_desc' %}><button type='button' class="btn btn-brand" >search</button></a>
+                        <input type='submit' class="btn btn-brand" value="search">
                     </form>
                 </div>
                 

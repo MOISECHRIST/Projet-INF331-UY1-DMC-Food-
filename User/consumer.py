@@ -124,7 +124,7 @@ def callback(ch, methode, properties, body):
     #3
     elif model_name.upper()=="PLAT":
         table="shopapp_plat_ingredients"
-        list_keys=["id","nom_plat","description","image_plat","recette","slug"]
+        list_keys=["id","nom_plat","description","image_plat","recette", "ingredients"]
         new_data={}
         for key in list_keys:
             new_data[key]=data[key]

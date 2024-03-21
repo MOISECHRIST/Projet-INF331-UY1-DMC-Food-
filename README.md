@@ -1,7 +1,18 @@
 # Projet-INF331-UY1-DMC-Food-
-Ce repertoire contiendra le code source en phase de developpement du projet INF331 nommé DMC Food-2023
-En date du 19/11/2023 nous avons developpé deux projet api (RestoUser et User) qui vont gérer respectivement les comptes marchants des restaurants et les comptes des simples utilisateurs.
+Ce projet est une application web microservice pour la recherche et la commande de plat.
+Cette application est developpe avec django rest framework pour le backend et bootstrapp pour le front end. 
 
+# Dependence du projet
+- Docker </br>
+- Python v3.11 </br>
+
+# Execution du projet 
+Pour executer le projet vous devez taper la commande ci dessous dans le dossier racine du projet :</br>
+sudo docker compose build
+sudo docker compose up
+
+
+# Structure du projet
 Ci dessous l'achitecture de c'est dossiers: 
 <h2>RestoUser</h2>
 RestoUser/</br>

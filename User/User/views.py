@@ -101,6 +101,22 @@ def edit_user_view(request):
     return render(request, "edit-user-info.html", context={'profil':profil,'hpbs':hpbs})
 
 def research_view(request):
+    if request.method=="POST":
+        if "nom_plat" in request.POST:
+            try:
+                plats=Plat.objects.filter(nom_plat__icontains=request.POST.get("nom_plat"))
+                return redirect(reverse("result_all_food",kwargs={"plat": request.POST.get("nom_plat")}))
+            except:
+                return redirect("result_notfound")
+        else:
+            try:
+                description=request.POST.get("description_plat")
+                name=model_prediction(description)
+                RechercherParDescription.objects.create(user=request.user,resultat=name)
+                plats=Plat.objects.filter(nom_plat__icontains=name)
+                return redirect(reverse("result_all_food",kwargs={"plat": name}))
+            except:
+                return redirect("result_notfound")
     return render(request, "research.html")
 
 def result_resarch(request, pk):
@@ -109,30 +125,9 @@ def result_resarch(request, pk):
     return render(request,"result_research.html",{'plat':plat, 'menus':menu})
 
 def result_all_research(request, plat):
-    plats=Plat.objects.filter(nom_plat__icontain=plat)
+    plats=Plat.objects.filter(nom_plat__icontains=plat)
     return render(request, "plat_trouve.html", {"plats":plats})
 
-def research_by_name_view(request):
-    if request.method=="POST":
-        try:
-            plats=Plat.objects.filter(nom_plat__icontain=request.POST.get("nom_plat"))
-            return redirect(reverse("result_all_food",kwargs={"plat": request.POST.get("nom_plat")}))
-        except:
-            return redirect("result_notfound")
-        
-    return render(request, "research.html")
-
-def research_by_desc_view(request):
-    if request.method=="POST":
-        try:
-            description=request.POST.get("description_plat")
-            name=model_prediction(description)
-            RechercherParDescription.objects.create(user=request.user,resultat=name)
-            plats=Plat.objects.filter(nom_plat__icontain=name)
-            return redirect(reverse("result_all_food",kwargs={"plat": name}))
-        except:
-            return redirect("result_notfound")
-    return render(request, "research.html")
 
 def result_notfound(request):
     return render(request,"result_notfound.html")

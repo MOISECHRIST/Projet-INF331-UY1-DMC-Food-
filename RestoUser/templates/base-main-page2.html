@@ -1,0 +1,225 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DMC.FOOD</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="70">
+
+
+    <!-- TOP NAV -->
+    <div class="top-nav" id="home">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-auto">
+                    <p><i class="bi bi-envelope-fill"></i>junior.meka@facsciences-uy1.cm</p>
+                    <p><i class="bi bi-phone-fill"></i>(237)698246125</p>
+                </div>
+                <div class="col-auto social-icons">
+                    <a href="#"><i class="bi bi-facebook"></i></a>
+                    <a href="#"><i class="bi bi-twitter"></i></a>
+                    <a href="#"><i class="bi bi-instagram"></i></a>
+                    <a href="#"><i class="bi bi-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if user.is_authenticated %}
+    
+    <!-- BOTTOM NAV -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">DMC<span class="dot">.</span>FOOD</a>
+            <div class="" id="navbarNav">
+              <div class="push">
+                <img src="{% static 'img/Group 2.png' %}" alt="" class="user-pic" onclick="toggleMenu()">
+
+                <div class="sub-menu-wrap" id="subMenu">
+                  <div class="sub-menu">
+                    <div class="user-info">
+                      <img src="{% static 'img/Group 2.png' %}" alt="">
+                      <h3>{{user.username}}</h3>
+                    </div>
+                    <hr>
+                  <a href="{% url 'edit_user' %}" class="sub-menu-link">
+                      <i class="bi bi-pencil-square"></i>
+                      <p>Edit Profile</p>
+                      <span><i class="bi bi-chevron-right"></i></span>
+                  </a>
+                  <a href="{% url 'logout' %}" class="sub-menu-link">
+                    <i class="bi bi-box-arrow-right"></i>
+                      <p>Logout</p>
+                      <span><i class="bi bi-chevron-right"></i></span>
+                  </a>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+        </div>
+    </nav>
+
+    {% else %}
+
+    <!-- BOTTOM NAV -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">DMC<span class="dot">.</span>FOOD</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="push">
+                    <a href="{% url 'signup' %}" class="btn btn-brand ms-lg-3">Sign Up</a>
+                    <a href="{% url 'login' %}" class="btn btn-brand ms-lg-3">Login</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    {% endif %}
+
+    {% block content %}
+    
+    
+    
+    {% endblock  %}
+    <section id="team" class="team">
+        <div class="container" data-aos="fade-up">
+  
+          <div class="section-header">
+            <h2>Our Team</h2>
+            <p>Nulla dolorum nulla nesciunt rerum facere sed ut inventore quam porro nihil id ratione ea sunt quis dolorem dolore earum</p>
+          </div>
+  
+          <div class="row gy-4">
+  
+            <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="100">
+                <div class="member">
+                    <img src="{% static 'img/meka.JPG' %}" class="img-fluid" alt="">
+                    <h4>Moise MEKA</h4>
+                    <span>Django Backend Developer</span>
+                    <div class="social">
+                      <a href=""><i class="bi bi-twitter"></i></a>
+                      <a href=""><i class="bi bi-github"></i>
+                      <a href=""><i class="bi bi-instagram"></i></a>
+                      <a href=""><i class="bi bi-linkedin"></i></a>
+                    </div>
+                  </div>
+                </div><!-- End Team Member -->
+      
+                <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="200">
+                  <div class="member">
+                    <img src="{% static 'img/Champlain.jpg' %}" class="img-fluid" alt="">
+                    <h4>Champlain DOUANLA</h4>
+                    <span>Backend Developer</span>
+                    <div class="social">
+                      <a href=""><i class="bi bi-twitter"></i></a>
+                      <a href=""><i class="bi bi-github"></i>
+                      <a href=""><i class="bi bi-instagram"></i></a>
+                      <a href=""><i class="bi bi-linkedin"></i></a>
+                    </div>
+                  </div>
+                </div><!-- End Team Member -->
+      
+                <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="300">
+                  <div class="member">
+                    <img src="{% static 'img/Stive.jpg' %}" class="img-fluid" alt="">
+                    <h4>Stive CHAMENI</h4>
+                    <span>Frontend Developer</span>
+                    <div class="social">
+                      <a href=""><i class="bi bi-twitter"></i></a>
+                      <a href=""><i class="bi bi-github"></i>
+                      <a href=""><i class="bi bi-instagram"></i></a>
+                      <a href=""><i class="bi bi-linkedin"></i></a>
+                    </div>
+                  </div>
+                </div><!-- End Team Member -->
+      
+                <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="400">
+                  <div class="member">
+                    <img src="{% static 'img/JULES.jpg' %}" class="img-fluid" alt="">
+                    <h4>Jule MVETUWOP</h4>
+                    <span>Frontend Developer</span>
+                    <div class="social">
+                      <a href=""><i class="bi bi-twitter"></i></a>
+                      <a href=""><i class="bi bi-github"></i>
+                      <a href=""><i class="bi bi-instagram"></i></a>
+                      <a href=""><i class="bi bi-linkedin"></i></a>
+                    </div>
+                  </div>
+                </div><!-- End Team Member -->
+  
+          </div>
+  
+        </div>
+    </section><!-- End Our Team Section -->
+
+    <!-- ======= Footer ======= -->
+    <footer id="footer" class="footer">
+
+        <div class="container">
+            <div class="row gy-4">
+                <div class="col-lg-9 col-md-12 footer-info">
+                    <a href="{% url 'home' %}" class="logo d-flex align-items-center">
+                        <span>DMC FOOD</span>
+                    </a>
+                    <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus.</p>
+                    <div class="social-links d-flex mt-4">
+                        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="facebook"><i class="bi bi-github"></i></a>
+                        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+                    <h4>Contact Us</h4>
+                    <p>
+                        A108 Mbarga Street <br>
+                        Yaounde ,UY1 535022<br>
+                        Yaounde 1<br><br>
+                        <strong>Phone:</strong> +237 698246125<br>
+                        <strong>Email:</strong> junior.meka@facsciences-uy1.cm<br>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container mt-4">
+            <div class="copyright">
+                &copy; Copyright <strong><span>2024</span></strong>. All Rights Reserved
+            </div>
+            <div class="credits">
+                Designed by <a href="{% url 'home' %}">DMC.FOOD</a>
+            </div>
+        </div>
+
+    </footer><!-- End Footer -->
+    <!-- End Footer -->
+
+    <div id="preloader"></div>
+
+    <script src="{% static 'vendor/bootstrap/js/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+</body>
+
+</html>
