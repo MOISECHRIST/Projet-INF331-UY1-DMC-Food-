@@ -1,0 +1,50 @@
+{% extends "base-main-page.html" %}
+
+{% block content %}
+
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs mt-0">
+        <nav>
+        <div class="container">
+            <ol>
+                <li><a href="{% url 'home' %}">Home</a></li>
+            <li>Rechercher Plat</li>
+            </ol>
+        </div>
+        </nav>
+    </div><!-- End Breadcrumbs -->
+    
+    <section>
+        <div class="container">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Reseach With Food Name</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Reseach With Food Description</button>
+                </li>
+            </ul>
+            
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0"><br><br><br>
+                    <form id="research_by_name" method="post">
+                        {% csrf_token %}
+                        <input type="text" name="nom_plat" class="form-control" id="nom_plat" required><br>
+                        <input type='submit' class="btn btn-brand" value="search">
+                    </form>
+                </div>
+
+                <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0"><br><br>
+                    <form id="research_by_description" method="post">
+                        {% csrf_token %}
+                        <textarea name="description_plat" id="description_plat" cols="me-30" rows="3" placeholder="entrer la description du plat recherché" style="width:1300px; paddin-left:50px"></textarea><br><br>
+                        <input type='submit' class="btn btn-brand" value="search">
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+
+{% endblock  %}  

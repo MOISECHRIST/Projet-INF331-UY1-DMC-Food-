@@ -1,0 +1,47 @@
+{% extends "base-form-page.html" %}
+
+{% block form %}
+
+    <div class="pt-4 pb-2">
+        <h5 class="card-title text-center pb-0 fs-4">Edit Your Order Number {{order.numero}}</h5>
+    </div>
+
+    <form class="row g-3 needs-validation" novalidate method="POST">
+        {% csrf_token %}
+
+        <div class="col-12">
+            <label for="yourRestorent" class="form-label">Quantity</label>
+            <div class="input-group has-validation">
+                    <select name="restaurant" class="form-control" id="yourRestorent" required>
+                        <option value="">-------<option>
+                        {% for menu in menus %}
+                        <option>{{menu.menu.restaurant}}</option>
+                        {% endfor %}
+                    </select>
+                <div class="invalid-feedback">Please enter your restaurant.</div>
+            </div>
+            </div>
+                
+            <div class="col-12">
+            <label for="yourQuantity" class="form-label">Quantity</label>
+            <div class="input-group has-validation">
+                <input type="number" name="quantite" class="form-control" id="yourQuantity" value={{order.quantite}} required>
+                <div class="invalid-feedback">Please enter your quantity.</div>
+            </div>
+            </div>
+
+            <div class="col-12">
+            <label for="datedelai" class="form-label">Date Delai</label>
+            <input type="date" name="date_delai" class="form-control" id="datedelai" value={{order.date_delai}} required>
+            <div class="invalid-feedback">Please enter the date!</div>
+            </div>
+
+            <div class="col-12">
+            <button class="btn btn-brand w-100" type="submit">Login</button>
+            </div>
+            <div class="col-12">
+            <p class="small mb-0">Don't have account? <a href="{% url 'signup' %}">Create an account</a></p>
+            </div>
+    </form>
+
+ {% endblock %}    
