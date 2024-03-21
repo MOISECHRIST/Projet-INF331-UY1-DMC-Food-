@@ -1,5 +1,4 @@
 # Projet-INF331-UY1-DMC-Food-
-<<<<<<< HEAD
 Ce repertoire contiendra le code source du projet INF331 nommé DMC Food-2023
 =======
 Ce projet est une application web microservice pour la recherche et la commande de plat.
